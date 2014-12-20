@@ -1,0 +1,12 @@
+html, body{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  background-color: #2B2B2B;
+}
+
+canvas#game-window{
+  border: 1px dashed black;
+  margin: auto;
+}
