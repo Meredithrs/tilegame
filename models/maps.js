@@ -1,4 +1,4 @@
-(function(){
+modules.export	=	(function(){
 	function getJSON(x, y, viewport_radius){
 		var maps	=	[];
 		if(x > viewport_radius && y > viewport_radius && x + viewport_radius < 100 && y + viewport_radius < 100){
