@@ -2,14 +2,10 @@ var express = require('express')
 var app = express();
 
 app.set('port', (process.env.PORT || 5000))
-
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(request, response){
 	response.send("success");
-});
-
-app.get('/game.js', function(request, response){
-	fs.openSync(__dirname + "/public/game.js", 'w');
 });
 
 app.listen(app.get('port'), function() {
