@@ -28,7 +28,6 @@ router.route('/maps/:x/:y').get(function(req, res){
 	res.json(maps.getJSON(req.params.x, req.params.y));
 });
 
-//app.use(express.compress());
 app.use(express.static(__dirname + '/public'));
 
 // more routes for our API will happen here
