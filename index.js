@@ -23,18 +23,13 @@ router.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
 
-router.route('/maps/:x/:y/:viewport_radius').get(function(req, res){
+router.route('/maps/:x/:y').get(function(req, res){
 	var maps	=	require("./models/maps.js");
-	res.json(maps.getJSON(req.params.x, req.params.y, req.params.viewport_radius));
+	res.json(maps.getJSON(req.params.x, req.params.y));
 });
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });   
-});
-
-//app.use(express.compress());
-//app.use(express.static(__dirname + '/public'));
+app.use(express.compress());
+app.use(express.static(__dirname + '/public'));
 
 // more routes for our API will happen here
 

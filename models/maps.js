@@ -1,5 +1,5 @@
 module.exports	=	(function(){
-	function getJSON(x, y, viewport_radius){
+	function getJSON(x, y){
 		var maps	=	[];
 
 		var map 	=	require("./../maps/"+ normalize(x) + "," + normalize(y) + ".js");
