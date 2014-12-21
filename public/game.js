@@ -120,8 +120,8 @@
 			});
 		}
 
-		canvas.addEventListener("click", function(event, element){
-			console.log(element.relMouseCoords(event));
+		canvas.addEventListener("click", function(event){
+			console.log(canvas.relMouseCoords(event));
 		})
 
 		return {
