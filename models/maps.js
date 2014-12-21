@@ -17,7 +17,7 @@ module.exports	=	(function(){
 						map_data_layer.push(map[i*100 + j]);
 					}
 					map_data.push(map_data_layer);
-					map_data 	=	[];
+					map_data_layer 	=	[];
 				}
 
 				output	=	map_data;
