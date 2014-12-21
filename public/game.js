@@ -65,7 +65,7 @@
 	var controller	=	(function(model){
 		function loadMap(x, y){
 			$.getJSON("/api/maps/" + x + "/" + y, function(data){
-				model.setMapData(model.mapToViewPort(data, x, y, 17, 13));
+				model.setMapData(model.mapToViewPort(JSON.parse(data), x, y, 17, 13));
 
 			});
 		}
