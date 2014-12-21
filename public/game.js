@@ -9,7 +9,6 @@
 		}
 
 		function drawTile(x, y, tile){
-			console.log(tile);
 			context.fillStyle	=	tile.color;
 			context.fillRect(x * width, y * width, width, width);
 			context.fill();
@@ -48,6 +47,7 @@
 			for(var i = y - Math.floor(height/2); i < y + Math.ceil(height/2); i++){
 				var result_layer	=	[];
 				for(var j = x - Math.floor(width/2); j < x + Math.ceil(width/2); j++){
+					console.log(_mapData[i][j]);
 					result_layer.push({'color': tileColors[_mapData[i][j]]});
 				}
 				result.push(result_layer);
