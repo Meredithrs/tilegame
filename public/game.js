@@ -150,8 +150,12 @@
 
 			var counter		=	0;
 			var timeout 	=	setInterval(function() {
+				if(Math.floor(model.player.x() + destination.x/distance) <= model.player.x() + destination.x && Math.floor(model.player.y() + destination.y/distance) <= model.player.y() + destination.y){
 					model.player.x(Math.floor(model.player.x() + destination.x/distance));
 					model.player.y(Math.floor(model.player.y() + destination.y/distance));
+				}else{
+					clearInterval(timeout);
+				}
 			}, 300);
 		})
 
