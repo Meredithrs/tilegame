@@ -112,7 +112,7 @@
 		})();
 
 		function update(){
-			view.drawTerrain(mapToViewport(player.x(), player.y(), 26, 20));
+			view.drawTerrain(mapToViewport(player.x(), player.y(), 26, 20) || {});
 			view.drawPlayer(player);
 		}
 
