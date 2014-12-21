@@ -44,6 +44,7 @@
 
 		function mapToViewPort(_mapData, x, y, width, height){
 			var result	=	[];
+			console.log(_mapData);
 			for(var i = y - Math.floor(height/2); i < y + Math.ceil(height/2); i++){
 				var result_layer	=	[];
 				for(var j = x - Math.floor(width/2); j < x + Math.ceil(width/2); j++){
