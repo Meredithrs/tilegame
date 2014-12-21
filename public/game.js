@@ -145,7 +145,7 @@
 			var coords 	=	canvas.relMouseCoords(event);
 
 			clearInterval(movex);
-			clearInterval(movex);
+			clearInterval(movey);
 
 			var destination	=	{};
 			destination.x 	=	model.player.x() + Math.floor(coords.x/24) - 13;
