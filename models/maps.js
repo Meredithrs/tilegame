@@ -1,16 +1,27 @@
 module.exports	=	(function(){
 	function getJSON(x, y, viewport_radius){
 		var maps	=	[];
-		x	=	parseInt(x, 10);
-		y	=	parseInt(y, 10);
-		viewport_radius	=	parseInt(viewport_radius, 10);
-		if(x > viewport_radius && y > viewport_radius && x + viewport_radius < 100 && y + viewport_radius < 100){
-			var map 	=	require("./../maps/"+ normalize(x) + "," + normalize(y) + ".js");
-			maps.push(map);
-			maps.push({"foo": "foo"});
-		}
-		maps.push({"foo": "foo"});
-		return JSON.stringify(maps);
+
+		var map 	=	require("./../maps/"+ normalize(x) + "," + normalize(y) + ".js");
+		maps.push(map);
+
+		var output	=	[];
+		maps.forEach(
+			function(element, index, array){
+				var map 		=	element.layers[0].data;
+				var map_data	=	[], map_data_layer;
+
+				for(var i = 0; i < 100; i++){
+					map_data_layer	=	[];
+					for(var j = 0; j < 100; j++){
+						map_data_layer.push(map[i*100 + j]);
+					}
+					map_data.push(map_data_layer);
+					map_data 	=	[];
+				}
+			}
+		);
+		return JSON.stringify(map_data);
 	}
 
 	function normalize(coord){
