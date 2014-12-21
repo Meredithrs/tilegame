@@ -80,7 +80,11 @@
 			for(var i = y - Math.floor(height/2); i < y + Math.ceil(height/2); i++){
 				var result_layer	=	[];
 				for(var j = x - Math.floor(width/2); j < x + Math.ceil(width/2); j++){
-					result_layer.push({'color': tileColors[mapData[i][j]]});
+					if(i > 0){
+						result_layer.push({'color': tileColors[mapData[i][j]]});
+					}else{
+						result_layer.push({});
+					}
 				}
 				result.push(result_layer);
 			}
