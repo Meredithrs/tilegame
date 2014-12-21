@@ -141,6 +141,9 @@
 
 		canvas.addEventListener("click", function(event){
 			var coords 	=	canvas.relMouseCoords(event);
+			
+			clearInterval(movex);
+			clearInterval(movex);
 
 			var destination	=	{};
 			destination.x 	=	model.player.x() + Math.floor(coords.x/24) - 13;
@@ -152,7 +155,7 @@
 
 			var distance	=	Math.sqrt(delta.x * delta.x + delta.y * delta.y);
 			console.log(distance, destination, delta);
-			
+
 			var counter		=	0;
 			var movex 	=	setInterval(function() {
 				model.player.x(model.player.x() + Math.floor(delta.x/distance));
