@@ -82,7 +82,7 @@
 			return result;
 		}
 
-		function Player(){
+		var player 	=	(function(){
 			var x, y;
 
 			function getX(_x){
@@ -105,7 +105,7 @@
 				'x': getX,
 				'y': getY
 			}
-		}
+		})();
 
 		function update(){
 			view.drawTerrain(mapToViewport(player.x(), player.y(), 26, 20));
@@ -116,8 +116,8 @@
 
 		return {
 			'setMapData': setMapData,
-			'mapToViewPort': mapToViewPort,
-			'player': Player()
+			'mapToViewport': mapToViewport,
+			'player': player
 		};
 	})(view);
 
