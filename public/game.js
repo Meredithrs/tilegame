@@ -150,7 +150,7 @@
 
 			var counter		=	0;
 			var timeout 	=	setTimeout(function() {
-				if(model.player.x() + destination.x/distance < destination.x && model.player.y() + destination.y/distance < destination.y){
+				if(model.player.x() + destination.x/distance < model.player.x() + destination.x && model.player.y() + destination.y/distance < model.player.y() + destination.y){
 					model.player.x(Math.floor(model.player.x() + destination.x/distance));
 					model.player.y(Math.floor(model.player.y() + destination.y/distance));
 				}else{
