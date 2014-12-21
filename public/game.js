@@ -75,7 +75,7 @@
 		function mapToViewport(x, y, width, height){
 			var result	=	[];
 
-			if(!mapData){
+			if(!mapData[0]){
 				return false;
 			}
 
