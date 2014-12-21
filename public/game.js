@@ -157,7 +157,7 @@
 				model.player.x(Math.floor(model.player.x() + delta.x/distance));
 				model.player.y(Math.floor(model.player.y() + delta.y/distance));
 
-				if(model.player.x() >= destination.x || model.player.y() >= destination.y){
+				if(model.player.x() === destination.x || model.player.y() === destination.y){
 					clearInterval(timeout);
 				}
 			}, 300);
