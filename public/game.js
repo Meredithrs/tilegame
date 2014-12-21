@@ -151,8 +151,8 @@
 			clearInterval(movey);
 
 			var destination	=	{};
-			destination.x 	=	model.player.x() + Math.floor(coords.x/24) - 13;
-			destination.y 	=	model.player.y() + Math.floor(coords.y/24) - 10;
+			destination.x 	=	Math.floor(model.player.x()) + Math.floor(coords.x/24) - 13;
+			destination.y 	=	Math.floor(model.player.y()) + Math.floor(coords.y/24) - 10;
 
 			var delta		=	{};
 			delta.x 		=	Math.floor(coords.x/24) - 13;
@@ -164,7 +164,7 @@
 			movex 	=	setInterval(function() {
 				model.player.x(model.player.x() + delta.x/distance);
 
-				if(model.player.x() === destination.x){
+				if(Math.floor(model.player.x()) === destination.x){
 					clearInterval(movex);
 				}
 			}, 300);
@@ -172,7 +172,7 @@
 			movey 	=	setInterval(function() {
 				model.player.y(model.player.y() + delta.y/distance);
 
-				if(model.player.y() === destination.y){
+				if(Math.floor(model.player.y()) === destination.y){
 					clearInterval(movey);
 				}
 			}, 300);
