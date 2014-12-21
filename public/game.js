@@ -154,7 +154,7 @@
 					model.player.x(Math.floor(model.player.x() + destination.x/distance));
 					model.player.y(Math.floor(model.player.y() + destination.y/distance));
 				}else{
-					cancelTimeout(timeout);
+					clearTimeout(timeout);
 				}
 			}, 300);
 		})
