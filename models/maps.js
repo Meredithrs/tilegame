@@ -19,9 +19,11 @@ module.exports	=	(function(){
 					map_data.push(map_data_layer);
 					map_data 	=	[];
 				}
+
+				output	=	map_data;
 			}
 		);
-		return JSON.stringify(map_data);
+		return JSON.stringify(output);
 	}
 
 	function normalize(coord){
