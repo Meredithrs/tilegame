@@ -29,8 +29,8 @@
 			);
 		}
 
-		function drawPlayer(player){
-			drawTile(player.x(), player.y(), {color: "white"});
+		function drawPlayer(){
+			drawTile(14, 10, {color: "white"});
 		}
 
 
@@ -75,8 +75,6 @@
 		function mapToViewport(x, y, width, height){
 			var result	=	[];
 
-			console.log("hey");
-
 			for(var i = y - Math.floor(height/2); i < y + Math.ceil(height/2); i++){
 				var result_layer	=	[];
 				for(var j = x - Math.floor(width/2); j < x + Math.ceil(width/2); j++){
@@ -120,7 +118,7 @@
 		function update(){
 			if(mapData){
 				view.drawTerrain(mapToViewport(player.x(), player.y(), 26, 20));
-				view.drawPlayer(player);
+				view.drawPlayer();
 			}
 			window.requestAnimationFrame(update);
 		}
