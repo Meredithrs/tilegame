@@ -25,7 +25,7 @@ router.use(function(req, res, next) {
 
 router.route('/maps/:x/:y/:viewport_radius').get(function(req, res){
 	var maps	=	require("./models/maps.js");
-	res.json(maps.getJSON());
+	res.json(maps.getJSON(req.params.x, req.params.y, req.params.viewport_radius));
 });
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)

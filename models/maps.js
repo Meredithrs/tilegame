@@ -2,7 +2,8 @@ module.exports	=	(function(){
 	function getJSON(x, y, viewport_radius){
 		var maps	=	[];
 		if(x > viewport_radius && y > viewport_radius && x + viewport_radius < 100 && y + viewport_radius < 100){
-			maps.push(require("./../maps/"+ normalize(x) + "," + normalize(y) + ".js"));
+			var map 	=	require("./../maps/"+ normalize(x) + "," + normalize(y) + ".js");
+			maps.push(map);
 		}
 		return JSON.stringify(maps);
 	}
