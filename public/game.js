@@ -149,12 +149,12 @@
 			var distance	=	Math.sqrt(destination.x * destination.x + destination.y * destination.y);
 
 			var counter		=	0;
-			var timeout 	=	setTimeout(function() {
+			var timeout 	=	setInterval(function() {
 				if(model.player.x() + destination.x/distance < model.player.x() + destination.x && model.player.y() + destination.y/distance < model.player.y() + destination.y){
 					model.player.x(Math.floor(model.player.x() + destination.x/distance));
 					model.player.y(Math.floor(model.player.y() + destination.y/distance));
 				}else{
-					clearTimeout(timeout);
+					clearInterval(timeout);
 				}
 			}, 300);
 		})
