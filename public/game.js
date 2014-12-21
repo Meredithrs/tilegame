@@ -30,7 +30,7 @@
 		}
 
 		function drawPlayer(){
-			drawTile(14, 10, {color: "white"});
+			drawTile(13, 10, {color: "white"});
 		}
 
 
