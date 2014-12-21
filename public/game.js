@@ -62,22 +62,23 @@
 		view.setTileWidth(24);
 		
 		var tileColors	=	[, "#5e984c", "#90c8c9", "#b9b18e", "#b9b7b2", "#fff0a9", "#78a7a8"];
+		var mapData;
 
 		function setMapData(_mapData){
 			mapData 	=	_mapData;
-			view.drawTerrain(mapData);
 		}
 
-		function mapToViewPort(_mapData, x, y, width, height){
+		function mapToViewport(x, y, width, height){
 			var result	=	[];
 
 			for(var i = y - Math.floor(height/2); i < y + Math.ceil(height/2); i++){
 				var result_layer	=	[];
 				for(var j = x - Math.floor(width/2); j < x + Math.ceil(width/2); j++){
-					result_layer.push({'color': tileColors[_mapData[i][j]]});
+					result_layer.push({'color': tileColors[mapData[i][j]]});
 				}
 				result.push(result_layer);
 			}
+
 			return result;
 		}
 
@@ -106,6 +107,13 @@
 			}
 		}
 
+		function update(){
+			view.drawTerrain(mapToViewport(player.x(), player.y(), 26, 20));
+			view.drawPlayer(player);
+		}
+
+		window.requestAnimationFrame();
+
 		return {
 			'setMapData': setMapData,
 			'mapToViewPort': mapToViewPort,
@@ -116,12 +124,14 @@
 	var controller	=	(function(model, canvas){
 		function loadMap(x, y){
 			$.getJSON("/api/maps/" + x + "/" + y, function(data){
-				model.setMapData(model.mapToViewPort(data, x, y, 26, 20));
+				model.setMapData(data);
 			});
 		}
 
 		canvas.addEventListener("click", function(event){
-			console.log(canvas.relMouseCoords(event));
+			var coords 	=	canvas.relMouseCoords(event);
+			player.x(Math.floor(coords.x/24));
+			player.y(Math.floor(coords.y/24));
 		})
 
 		return {
