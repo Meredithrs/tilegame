@@ -47,7 +47,7 @@
 			for(var i = y - height/2; i < y + height/2; i++){
 				var result_layer	=	[];
 				for(var j = x - width/2; j < x + width/2; j++){
-					result_layer.push({'color': tilerColors[_mapData[i][x]]});
+					result_layer.push({'color': tileColors[_mapData[i][x]]});
 				}
 				result.push(result_layer);
 			}
