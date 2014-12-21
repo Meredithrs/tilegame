@@ -141,8 +141,22 @@
 
 		canvas.addEventListener("click", function(event){
 			var coords 	=	canvas.relMouseCoords(event);
-			model.player.x(model.player.x() + Math.floor(coords.x/24) - 13);
-			model.player.y(model.player.y() + Math.floor(coords.y/24) - 10);
+
+			var destination	=	{};
+			destination.x 	=	Math.floor(coords.x/24) - 13;
+			destination.y 	=	Math.floor(coords.y/24) - 10;
+
+			var distance	=	Math.sqrt(destination.x * destination.x + destination.y * destination.y);
+
+			var counter		=	0;
+			var timeout 	=	setTimeout(function() {
+				if(model.player.x() + destination.x/distance < destination.x && model.player.y() + destination.y/distance < destination.y){
+					model.player.x(Math.floor(model.player.x() + destination.x/distance));
+					model.player.y(Math.floor(model.player.y() + destination.y/distance));
+				}else{
+					cancelTimeout(timeout);
+				}
+			}, 300);
 		})
 
 		return {
