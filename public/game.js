@@ -112,7 +112,7 @@
 			view.drawPlayer(player);
 		}
 
-		window.requestAnimationFrame();
+		window.requestAnimationFrame(update);
 
 		return {
 			'setMapData': setMapData,
