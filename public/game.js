@@ -151,7 +151,8 @@
 			delta.y 		=	Math.floor(coords.y/24) - 10;
 
 			var distance	=	Math.sqrt(destination.x * destination.x + destination.y * destination.y);
-
+			console.log(distance, destination, delta);
+			
 			var counter		=	0;
 			var movex 	=	setInterval(function() {
 				model.player.x(Math.floor(model.player.x() + delta.x/distance));
