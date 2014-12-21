@@ -4,7 +4,7 @@
 		var width	=	24;
 		var context	=	canvas.getContext("2d");
 
-		function setWidth(_width){
+		function setTileWidth(_width){
 			width 	=	_width;
 		}
 
@@ -27,24 +27,14 @@
 		}
 
 		return {
-			'setWidth': setWidth,
+			'setTileWidth': setTileWidth,
 			'drawTerrain': drawTerrain
 		};
 	})(canvas);
 
 	var model	=	(function(view){
-		var blue	=	{"color": "blue"};
-		var green	=	{"color": "green"};
-
-		view.setWidth(36);
-		view.drawTerrain([
-			[blue, green, blue, green, blue, green, blue, green, blue, green, blue, green, blue, green, blue, green],
-			[green, blue, green, blue, green, blue, green, blue, green, blue, green, blue, green, blue, green, blue],
-			[blue, green, blue, green, blue, green, blue, green, blue, green, blue, green, blue, green, blue, green],
-			[green, blue, green, blue, green, blue, green, blue, green, blue, green, blue, green, blue, green, blue],
-			[blue, green, blue, green, blue, green, blue, green, blue, green, blue, green, blue, green, blue, green],
-			[green, blue, green, blue, green, blue, green, blue, green, blue, green, blue, green, blue, green, blue]
-		]);
+		view.setTileWidth(36);
+		view.drawTerrain();
 		
 		return {
 
