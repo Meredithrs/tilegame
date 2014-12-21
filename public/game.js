@@ -9,6 +9,7 @@
 		}
 
 		function drawTile(x, y, tile){
+			console.log(tile);
 			context.fillStyle	=	tile.color;
 			context.fillRect(x * width, y * width, width, width);
 			context.fill();
