@@ -3,9 +3,9 @@ var validator = require('node-validator').sanitize;
 module.exports	=	(function(){
 	function getJSON(x, y, viewport_radius){
 		var maps	=	[];
-		x	=	santize(x).toInt();
-		y	=	santize(y).toInt();
-		viewport_radius	=	santize(viewport_radius).toInt();
+		x	=	sanitize(x).toInt();
+		y	=	sanitize(y).toInt();
+		viewport_radius	=	sanitize(viewport_radius).toInt();
 		if(x > viewport_radius && y > viewport_radius && x + viewport_radius < 100 && y + viewport_radius < 100){
 			var map 	=	require("./../maps/"+ normalize(x) + "," + normalize(y) + ".js");
 			maps.push(map);
