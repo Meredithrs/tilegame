@@ -139,9 +139,11 @@
 			});
 		}
 
+		var movex, movey;
+
 		canvas.addEventListener("click", function(event){
 			var coords 	=	canvas.relMouseCoords(event);
-			
+
 			clearInterval(movex);
 			clearInterval(movex);
 
@@ -156,8 +158,7 @@
 			var distance	=	Math.sqrt(delta.x * delta.x + delta.y * delta.y);
 			console.log(distance, destination, delta);
 
-			var counter		=	0;
-			var movex 	=	setInterval(function() {
+			movex 	=	setInterval(function() {
 				model.player.x(model.player.x() + Math.floor(delta.x/distance));
 
 				if(model.player.x() === destination.x){
@@ -165,7 +166,7 @@
 				}
 			}, 300);
 
-			var movey 	=	setInterval(function() {
+			movey 	=	setInterval(function() {
 				model.player.y(model.player.y() + Math.floor(delta.y/distance));
 
 				if(model.player.y() === destination.y){
