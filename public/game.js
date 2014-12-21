@@ -57,7 +57,8 @@
 
 		return {
 			'setTileWidth': setTileWidth,
-			'drawTerrain': drawTerrain
+			'drawTerrain': drawTerrain,
+			'drawPlayer': drawPlayer
 		};
 	})(canvas);
 
