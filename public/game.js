@@ -9,7 +9,7 @@
 		}
 
 		function drawTile(x, y, tile){
-			context.fillStyle	=	tile.color;
+			context.fillStyle	=	tile.color || "black";
 			context.fillRect(x * width, y * width, width, width);
 			context.fill();
 		}
@@ -25,6 +25,32 @@
 				}
 			);
 		}
+
+		function drawPlayer(player){
+			drawTile(player.x(), player.y(), {color: "white"});
+		}
+
+
+		function relMouseCoords(event){
+		    var totalOffsetX = 0;
+		    var totalOffsetY = 0;
+		    var canvasX = 0;
+		    var canvasY = 0;
+		    var currentElement = this;
+
+		    do{
+		        totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
+		        totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
+		    }
+		    while(currentElement = currentElement.offsetParent)
+
+		    canvasX = event.pageX - totalOffsetX;
+		    canvasY = event.pageY - totalOffsetY;
+
+		    return {x:canvasX, y:canvasY};
+		}
+
+		HTMLCanvasElement.prototype.relMouseCoords = relMouseCoords;
 
 		return {
 			'setTileWidth': setTileWidth,
@@ -44,11 +70,10 @@
 
 		function mapToViewPort(_mapData, x, y, width, height){
 			var result	=	[];
-			console.log(_mapData);
+
 			for(var i = y - Math.floor(height/2); i < y + Math.ceil(height/2); i++){
 				var result_layer	=	[];
 				for(var j = x - Math.floor(width/2); j < x + Math.ceil(width/2); j++){
-					console.log(_mapData[i][j], i, j);
 					result_layer.push({'color': tileColors[_mapData[i][j]]});
 				}
 				result.push(result_layer);
@@ -56,26 +81,58 @@
 			return result;
 		}
 
-		return {
-			'setMapData': setMapData,
-			'mapToViewPort': mapToViewPort
-		};
-	})(view);
+		function Player(){
+			var x, y;
 
-	var controller	=	(function(model){
-		function loadMap(x, y){
-			$.getJSON("/api/maps/" + x + "/" + y, function(data){
-				model.setMapData(model.mapToViewPort(data, x, y, 26, 20));
+			function getX(_x){
+				if(!_x){
+					return x;
+				}else{
+					x 	=	_x;
+				}
+			}
 
-			});
+			function getY(_y){
+				if(!_y){
+					return y;
+				}else{
+					y 	=	_y;
+				}
+			}
+
+			return {
+				'x': getX,
+				'y': getY
+			}
 		}
 
 		return {
-			'loadMap': loadMap
+			'setMapData': setMapData,
+			'mapToViewPort': mapToViewPort,
+			'player': Player()
 		};
-	})(model);
+	})(view);
 
-	controller.loadMap(50, 66);
+	var controller	=	(function(model, canvas){
+		function loadMap(x, y){
+			$.getJSON("/api/maps/" + x + "/" + y, function(data){
+				model.setMapData(model.mapToViewPort(data, x, y, 26, 20));
+			});
+		}
+
+		canvas.addEventListener("click", function(event, element){
+			console.log(element.relMouseCoords(event));
+		})
+
+		return {
+			'loadMap': loadMap,
+			'player': model.player
+		};
+	})(model, canvas);
+
+	controller.player.x(50);
+	controller.player.y(66);
+	controller.loadMap(controller.player.x(), controller.player.y());
 })(
 	document.querySelector("canvas#game-window")
 );
