@@ -23,7 +23,7 @@ module.exports	=	(function(){
 				output	=	map_data;
 			}
 		);
-		return JSON.stringify(output);
+		return output;
 	}
 
 	function normalize(coord){
