@@ -75,10 +75,6 @@
 		function mapToViewport(x, y, width, height){
 			var result	=	[];
 
-			if(!mapData[0]){
-				return false;
-			}
-
 			console.log("hey");
 
 			for(var i = y - Math.floor(height/2); i < y + Math.ceil(height/2); i++){
@@ -118,8 +114,11 @@
 		})();
 
 		function update(){
-			view.drawTerrain(mapToViewport(player.x(), player.y(), 26, 20));
-			view.drawPlayer(player);
+			if(mapData){
+				view.drawTerrain(mapToViewport(player.x(), player.y(), 26, 20));
+				view.drawPlayer(player);
+			}
+			
 		}
 
 		window.requestAnimationFrame(update);
