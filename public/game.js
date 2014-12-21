@@ -44,9 +44,9 @@
 
 		function mapToViewPort(_mapData, x, y, width, height){
 			var result	=	[];
-			for(var i = y - height/2; i < y + height/2; i++){
+			for(var i = y - Math.floor(height/2); i < y + Math.ceil(height/2); i++){
 				var result_layer	=	[];
-				for(var j = x - width/2; j < x + width/2; j++){
+				for(var j = x - Math.floor(width/2); j < x + Math.ceil(width/2); j++){
 					result_layer.push({'color': tileColors[_mapData[i][j]]});
 				}
 				result.push(result_layer);
