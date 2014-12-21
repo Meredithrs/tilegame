@@ -143,8 +143,8 @@
 
 		canvas.addEventListener("click", function(event){
 			var coords 	=	canvas.relMouseCoords(event);
-			model.player.x(Math.floor(coords.x/24));
-			model.player.y(Math.floor(coords.y/24));
+			model.player.x(model.player.x() + Math.floor(coords.x/24) - 13);
+			model.player.y(model.player.y() + Math.floor(coords.y/24) - 10);
 		})
 
 		return {
