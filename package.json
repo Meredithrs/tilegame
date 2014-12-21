@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "express": "~4.9.x",
-    "mongoose": "~3.6.13",
-    "body-parser": "~1.0.1"
+    "body-parser": "~1.0.1",
+    "node-validator": "~0.1.11"
   },
   "engines": {
     "node": "0.10.x"
