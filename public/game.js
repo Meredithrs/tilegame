@@ -33,7 +33,7 @@
 	})(canvas);
 
 	var model	=	(function(view){
-		view.setTileWidth(36);
+		view.setTileWidth(24);
 		
 		var tileColors	=	[, "#5e984c", "#90c8c9", "#b9b18e", "#b9b7b2", "#fff0a9", "#78a7a8"];
 
