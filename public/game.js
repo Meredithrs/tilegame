@@ -75,6 +75,9 @@
 		function mapToViewport(x, y, width, height){
 			var result	=	[];
 
+			x 	=	Math.floor(x);
+			y 	=	Math.floor(y);
+
 			for(var i = y - Math.floor(height/2); i < y + Math.ceil(height/2); i++){
 				var result_layer	=	[];
 				for(var j = x - Math.floor(width/2); j < x + Math.ceil(width/2); j++){
@@ -159,7 +162,7 @@
 			console.log(distance, destination, delta);
 
 			movex 	=	setInterval(function() {
-				model.player.x(model.player.x() + Math.floor(delta.x/distance));
+				model.player.x(model.player.x() + delta.x/distance);
 
 				if(model.player.x() === destination.x){
 					clearInterval(movex);
@@ -167,7 +170,7 @@
 			}, 300);
 
 			movey 	=	setInterval(function() {
-				model.player.y(model.player.y() + Math.floor(delta.y/distance));
+				model.player.y(model.player.y() + delta.y/distance);
 
 				if(model.player.y() === destination.y){
 					clearInterval(movey);
