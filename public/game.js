@@ -83,7 +83,11 @@
 							if(!mapData[64*y + outer_index]){
 								mapData[64*y + outer_index]	=	[];
 							}
-							mapData[64 * y + outer_index][64 * x + inner_index]	=	inner_element;
+							if(tiles[inner_element].color){
+								mapData[64 * y + outer_index][64 * x + inner_index]	=	tiles[inner_element];
+							}else{
+								mapData[64 * y + outer_index][64 * x + inner_index]	=	new tiles[inner_element]();
+							}							
 						}
 					);
 				}
@@ -107,8 +111,10 @@
 			}
 
 			function grass(){
+				var colorValue	=	Math.floor(Math.random()*3+51);
+
 				function color(){
-					return "#73be51";
+					return "hsl(101.6,45.6%,"+colorValue+"%)";
 				}
 
 				function walkable(){
@@ -122,8 +128,10 @@
 			}
 
 			function floor(){
+				var colorValue	=	Math.floor(Math.random()*2+58);
+
 				function color(){
-					return "#bea06b";
+					return "hsl(38.3,39%,"+colorValue+"%)";
 				}
 
 				function walkable(){
@@ -137,8 +145,10 @@
 			}
 
 			function woodpath(){
+				var colorValue	=	Math.floor(Math.random()*2+61);
+
 				function color(){
-					return "#bea77e";
+					return "hsl(38.4,33%,"+colorValue+"%)";
 				}
 
 				function walkable(){
@@ -152,8 +162,10 @@
 			}
 
 			function stonepath(){
+				var colorValue	=	Math.floor(Math.random()*3+81);
+
 				function color(){
-					return "#d1d1d1";
+					return "hsl(0,0%,"+colorValue+"%)";
 				}
 
 				function walkable(){
@@ -167,8 +179,10 @@
 			}
 
 			function stonewall(){
+				var colorValue	=	Math.floor(Math.random()*2+62);
+
 				function color(){
-					return "#a0a0a0";
+					return "hsl(0,0%,"+colorValue+"%)";
 				}
 
 				function walkable(){
@@ -182,8 +196,23 @@
 			}
 
 			function saltwater(){
+				var offset 		=	Math.floor(Math.random()*(5));
+				var colorValue	=	Math.floor(Math.random()*10+30);
+				var count 		=	0;
+
 				function color(){
-					return "#285673";
+					var date 	=	new Date();
+					var seconds =	date.getSeconds();
+
+					if((seconds + offset)%2 === 0){
+						if(count === 0){
+							colorValue 	=	Math.floor(Math.random()*10+30);
+							count++;							
+						}
+					}else{
+						count 	=	0;
+					}
+					return "hsl(203.2,48.4%," + colorValue + "%)";
 				}
 
 				function walkable(){
@@ -197,8 +226,23 @@
 			}
 
 			function freshwater(){
+				var offset 		=	Math.floor(Math.random()*(5));
+				var colorValue	=	Math.floor(Math.random()*10+50);
+				var count 		=	0;
+
 				function color(){
-					return "#31698c";
+					var date 	=	new Date();
+					var seconds =	date.getSeconds();
+
+					if((seconds + offset)%2 === 0){
+						if(count === 0){
+							colorValue 	=	Math.floor(Math.random()*10+50);
+							count++;							
+						}
+					}else{
+						count 	=	0;
+					}
+					return "hsl(203.1,48.1%," + colorValue + "%)";
 				}
 
 				function walkable(){
@@ -212,8 +256,10 @@
 			}
 
 			function mud(){
+				var colorValue	=	Math.floor(Math.random()*3+22);
+
 				function color(){
-					return "#523624";
+					return "hsl(23.5,39%,"+colorValue+"%)";
 				}
 
 				function walkable(){
@@ -227,8 +273,23 @@
 			}
 
 			function swampwater(){
+				var offset 		=	Math.floor(Math.random()*(5));
+				var colorValue	=	Math.floor(Math.random()*5+35);
+				var count 		=	0;
+
 				function color(){
-					return "#2f8a43";
+					var date 	=	new Date();
+					var seconds =	date.getSeconds();
+
+					if((seconds + offset)%6 === 0){
+						if(count === 0){
+							colorValue 	=	Math.floor(Math.random()*5+35);
+							count++;							
+						}
+					}else{
+						count 	=	0;
+					}
+					return "hsl(133.2,49.2%," + colorValue + "%)";
 				}
 
 				function walkable(){
@@ -242,8 +303,10 @@
 			}
 
 			function dirtpath(){
+				var colorValue	=	Math.floor(Math.random()*3+10);
+
 				function color(){
-					return "#2d300a";
+					return "hsl(64.7,65.5%,"+colorValue+"%)";
 				}
 
 				function walkable(){
@@ -257,8 +320,10 @@
 			}
 
 			function swampgrass(){
+				var colorValue	=	Math.floor(Math.random()*3+28);
+
 				function color(){
-					return "#256c35";
+					return "hsl(133.5,49%,"+colorValue+"%)";
 				}
 
 				function walkable(){
@@ -272,8 +337,10 @@
 			}
 
 			function dirt(){
+				var colorValue	=	Math.floor(Math.random()*3+7);
+
 				function color(){
-					return "#1b120c";
+					return "hsl(24,38.5%,"+colorValue+"%)";
 				}
 
 				function walkable(){
@@ -287,8 +354,10 @@
 			}
 
 			function sand(){
+				var colorValue	=	Math.floor(Math.random()*3+74);
+
 				function color(){
-					return "#e3eb94";
+					return "hsl(65.5,68.5%,"+colorValue+"%)";
 				}
 
 				function walkable(){
@@ -332,8 +401,10 @@
 			}
 
 			function sandstone(){
+				var colorValue	=	Math.floor(Math.random()*3+66);
+
 				function color(){
-					return "#cdc886";
+					return "hsl(55.8,41.5%,"+colorValue+"%)";
 				}
 
 				function walkable(){
@@ -346,7 +417,7 @@
 				}
 			}
 
-			return [empty(), grass(), floor(), woodpath(), stonepath(), stonewall(), saltwater(), freshwater(), mud(), swampwater(), dirtpath(), swampgrass(), dirt(), sand(), blacktile(), whitetile(), sandstone()];
+			return [empty(), grass, floor(), woodpath(), stonepath(), stonewall(), saltwater, freshwater, mud, swampwater, dirtpath, swampgrass, dirt, sand, blacktile(), whitetile(), sandstone];
 		})();
 
 		function mapToViewport(x, y, width, height){
@@ -359,7 +430,7 @@
 				var result_layer	=	[];
 				for(var j = x - Math.floor(width/2); j < x + Math.ceil(width/2); j++){
 					if(mapData && mapData[i]){
-						result_layer.push(tiles[mapData[i][j]]);
+						result_layer.push(mapData[i][j]);
 					}else{
 						result_layer.push(tiles[0]);
 					}
@@ -388,17 +459,19 @@
 				return y;
 			}
 
+			function teleport(_x, _y){
+				x 	=	_x;
+				y 	=	_y;
+				loadMap(x, y);
+			}
+
 			function move(_x, _y){
 				clearInterval(movex[0]);
 				clearInterval(movey[0]);
 
 				var loadMapTable	=	[Math.floor((_x + 13)/64), Math.floor((_x - 13)/64), Math.floor(getX()/64),
 										 Math.floor((_y + 10)/64), Math.floor((_y - 10)/64), Math.floor(getY()/64)];
-				
-				if(!mapData || !mapData[_y] || !mapData[_y][_x]){
-					loadMap(_x, _y);
-				}
-
+			
 				if(loadMapTable[0] !== loadMapTable[2]){
 					loadMap(_x + 13, Math.floor(getY()));
 				}
@@ -440,7 +513,7 @@
 				movex 	=	[setInterval(function(){
 					movex[1]++;
 					if(isLegalMove(getX() + delta.x/distance, getY())){
-						x(getX() + delta.x/distance);
+						x 	=	getX() + delta.x/distance;
 					}
 
 					if(Math.floor(getX()) === _x || movex[1] > 26){
@@ -451,7 +524,7 @@
 				movey 	=	[setInterval(function(){
 					movey[1]++;
 					if(model.isLegalMove(getX(), getY() + delta.y/distance)){
-						y(getY() + delta.y/distance);
+						y 	=	(getY() + delta.y/distance);
 					}
 					
 					if(Math.floor(getY()) === _y || movey[1] > 20){
@@ -463,7 +536,8 @@
 			return {
 				'x': getX,
 				'y': getY,
-				'move': move
+				'move': move,
+				'teleport': teleport
 			}
 		})();
 
@@ -471,7 +545,7 @@
 			if(!mapData[Math.floor(y)] || !mapData[Math.floor(y)][Math.floor(x)]){
 				return false;
 			}
-			return tiles[mapData[Math.floor(y)][Math.floor(x)]].walkable();
+			return mapData[Math.floor(y)][Math.floor(x)].walkable();
 		}
 
 		function update(){
@@ -494,13 +568,8 @@
 
 	var controller	=	(function(model, canvas){
 
-		var movex = [], movey = [];
-
 		canvas.addEventListener("click", function(event){
 			var coords 	=	canvas.relMouseCoords(event);
-
-			clearInterval(movex[0]);
-			clearInterval(movey[0]);
 
 			model.player.move(Math.floor(model.player.x()) + Math.floor(coords.x/24) - 13, Math.floor(model.player.y()) + Math.floor(coords.y/24) - 10);
 		})
@@ -510,7 +579,7 @@
 		};
 	})(model, canvas);
 
-	controller.player.move(35, 27);
+	controller.player.teleport(35, 27);
 })(
 	document.querySelector("canvas#game-window")
 );
