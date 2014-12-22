@@ -363,6 +363,13 @@
 			destination.x 	=	Math.floor(model.player.x()) + Math.floor(coords.x/24) - 13;
 			destination.y 	=	Math.floor(model.player.y()) + Math.floor(coords.y/24) - 10;
 
+			if(Math.floor((destination.x + 13)/64) !== Math.floor(model.player.x()/64)){
+				loadMap(destination.x + 13, Math.floor(model.player.y()));
+			}
+			if(Math.floor((destination.x - 13)/64) !== Math.floor(model.player.x()/64)){
+				loadMap(destination.x - 13, Math.floor(model.player.y()));
+			}
+
 			var delta		=	{};
 			delta.x 		=	Math.floor(coords.x/24) - 13;
 			delta.y 		=	Math.floor(coords.y/24) - 10;
