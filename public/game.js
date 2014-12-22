@@ -396,7 +396,7 @@
 		})();
 
 		function isLegalMove(x, y){
-			if(!mapData[Math.floor(y)] || mapData[Math.floor(y)][Math.floor(x)]){
+			if(!mapData[Math.floor(y)] || !mapData[Math.floor(y)][Math.floor(x)]){
 				return false;
 			}
 			return tiles[mapData[Math.floor(y)][Math.floor(x)]].walkable();
