@@ -9,7 +9,11 @@
 		}
 
 		function drawTile(x, y, tile){
-			context.fillStyle	=	tile.color || "black";
+			if(tile && tile.color){
+				context.fillStyle	=	tile.color();
+			}else{
+				context.fillStyle	=	"black";
+			}
 			context.fillRect(x * width, y * width, width, width);
 			context.fill();
 		}
@@ -30,7 +34,9 @@
 		}
 
 		function drawPlayer(){
-			drawTile(13, 10, {color: "white"});
+			drawTile(13, 10, {color: function(){
+				return "white";
+			}});
 		}
 
 
@@ -65,12 +71,210 @@
 	var model	=	(function(view){
 		view.setTileWidth(24);
 		
-		var tileColors	=	[, "#5e984c", "#90c8c9", "#b9b18e", "#b9b7b2", "#fff0a9", "#78a7a8"];
 		var mapData;
 
 		function setMapData(_mapData){
 			mapData 	=	_mapData;
 		}
+
+		var tiles 	=	(function Tiles(){
+			function grass(){
+				function color(){
+					return "#73be51";
+				}
+
+				function walkable(){
+					return true;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			function floor(){
+				function color(){
+					return "#bea06b";
+				}
+
+				function walkable(){
+					return true;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			function woodpath(){
+				function color(){
+					return "#bea77e";
+				}
+
+				function walkable(){
+					return true;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			function stonepath(){
+				function color(){
+					return "#d1d1d1";
+				}
+
+				function walkable(){
+					return true;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			function stonewall(){
+				function color(){
+					return "#a0a0a0";
+				}
+
+				function walkable(){
+					return false;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			function saltwater(){
+				function color(){
+					return "#285673";
+				}
+
+				function walkable(){
+					return false;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			function freshwater(){
+				function color(){
+					return "#31698c";
+				}
+
+				function walkable(){
+					return false;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			function mud(){
+				function color(){
+					return "#523624";
+				}
+
+				function walkable(){
+					return true;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			function swampwater(){
+				function color(){
+					return "#2f8a43";
+				}
+
+				function walkable(){
+					return false;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			function dirtpath(){
+				function color(){
+					return "#2d300a";
+				}
+
+				function walkable(){
+					return true;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			function swampgrass(){
+				function color(){
+					return "#256c35";
+				}
+
+				function walkable(){
+					return true;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			function dirt(){
+				function color(){
+					return "#1b120c";
+				}
+
+				function walkable(){
+					return true;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			function sand(){
+				function color(){
+					return "#e3eb94";
+				}
+
+				function walkable(){
+					return true;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			return [, grass(), floor(), woodpath(), stonepath(), stonewall(), saltwater(), freshwater(), mud(), swampwater(), dirtpath(), swampgrass(), dirt(), sand()];
+		})();
 
 		function mapToViewport(x, y, width, height){
 			var result	=	[];
@@ -81,8 +285,8 @@
 			for(var i = y - Math.floor(height/2); i < y + Math.ceil(height/2); i++){
 				var result_layer	=	[];
 				for(var j = x - Math.floor(width/2); j < x + Math.ceil(width/2); j++){
-					if(i > 0 && i < 100){
-						result_layer.push({'color': tileColors[mapData[i][j]]});
+					if(i > 0 && i < 64){
+						result_layer.push(tiles[mapData[i][j]]);
 					}else{
 						result_layer.push({});
 					}
@@ -184,8 +388,8 @@
 		};
 	})(model, canvas);
 
-	controller.player.x(50);
-	controller.player.y(66);
+	controller.player.x(35);
+	controller.player.y(27);
 	controller.loadMap(controller.player.x(), controller.player.y());
 })(
 	document.querySelector("canvas#game-window")

@@ -11,10 +11,10 @@ module.exports	=	(function(){
 				var map 		=	element.layers[0].data;
 				var map_data	=	[], map_data_layer;
 
-				for(var i = 0; i < 100; i++){
+				for(var i = 0; i < 64; i++){
 					map_data_layer	=	[];
-					for(var j = 0; j < 100; j++){
-						map_data_layer.push(map[i*100 + j]);
+					for(var j = 0; j < 64; j++){
+						map_data_layer.push(map[i*64 + j]);
 					}
 					map_data.push(map_data_layer);
 					map_data_layer 	=	[];
@@ -27,7 +27,7 @@ module.exports	=	(function(){
 	}
 
 	function normalize(coord){
-		return Math.floor(coord/100);
+		return Math.floor(coord/64);
 	}
 
 	return {
