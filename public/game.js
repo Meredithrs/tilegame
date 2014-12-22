@@ -370,28 +370,100 @@
 			return result;
 		}
 
+		function loadMap(x, y){
+			$.getJSON("/api/maps/" + x + "/" + y, function(data){
+				setMapData(data, x, y);
+			});
+		}
+
 		var player 	=	(function(){
 			var x, y;
+			var movex = [], movey = [];
 
-			function getX(_x){
-				if(!_x){
-					return x;
-				}else{
-					x 	=	_x;
-				}
+			function getX(){
+				return x;
 			}
 
-			function getY(_y){
-				if(!_y){
-					return y;
-				}else{
-					y 	=	_y;
+			function getY(){
+				return y;
+			}
+
+			function move(_x, _y){
+				clearInterval(movex[0]);
+				clearInterval(movey[0]);
+
+				var loadMapTable	=	[Math.floor((_x + 13)/64), Math.floor((_x - 13)/64), Math.floor(getX()/64),
+										 Math.floor((_y + 10)/64), Math.floor((_y - 10)/64), Math.floor(getY()/64)];
+				
+				if(!mapData || !mapData[_y] || !mapData[_y][_x]){
+					loadMap(_x, _y);
 				}
+
+				if(loadMapTable[0] !== loadMapTable[2]){
+					loadMap(_x + 13, Math.floor(getY()));
+				}
+
+				if(loadMapTable[1] !== loadMapTable[2]){
+					loadMap(_x - 13, Math.floor(getY()));
+				}
+
+				if(loadMapTable[3] !== loadMapTable[5]){
+					loadMap(Math.floor(getX()), _y + 10);
+				}
+
+				if(loadMapTable[4] !== loadMapTable[5]){
+					loadMap(Math.floor(getX()), _y - 10);
+				}
+				
+				if(loadMapTable[0] !== loadMapTable[2] && loadMapTable[3] !== loadMapTable[5]){
+					loadMap(_x + 13, _y + 10);
+				}
+
+				if(loadMapTable[1] !== loadMapTable[2] && loadMapTable[3] !== loadMapTable[5]){
+					loadMap(_x - 13, _y + 10);
+				}
+				
+				if(loadMapTable[0] !== loadMapTable[2] && loadMapTable[4] !== loadMapTable[5]){
+					loadMap(_x + 13, _y - 10);
+				}
+				
+				if(loadMapTable[1] !== loadMapTable[2] && loadMapTable[4] !== loadMapTable[5]){
+					loadMap(_x - 13, _y - 10);
+				}
+
+				var delta		=	{};
+				delta.x 		=	_x - Math.floor(getX());
+				delta.y 		=	_y - Math.floor(getY());
+
+				var distance	=	Math.sqrt(delta.x * delta.x + delta.y * delta.y);
+
+				movex 	=	[setInterval(function(){
+					movex[1]++;
+					if(isLegalMove(getX() + delta.x/distance, getY())){
+						x(getX() + delta.x/distance);
+					}
+
+					if(Math.floor(getX()) === _x || movex[1] > 26){
+						clearInterval(movex[0]);
+					}
+				}, 300), 0];
+
+				movey 	=	[setInterval(function(){
+					movey[1]++;
+					if(model.isLegalMove(getX(), getY() + delta.y/distance)){
+						y(getY() + delta.y/distance);
+					}
+					
+					if(Math.floor(getY()) === _y || movey[1] > 20){
+						clearInterval(movey[0]);
+					}
+				}, 300), 0];
 			}
 
 			return {
 				'x': getX,
-				'y': getY
+				'y': getY,
+				'move': move
 			}
 		})();
 
@@ -421,11 +493,6 @@
 	})(view);
 
 	var controller	=	(function(model, canvas){
-		function loadMap(x, y){
-			$.getJSON("/api/maps/" + x + "/" + y, function(data){
-				model.setMapData(data, x, y);
-			});
-		}
 
 		var movex = [], movey = [];
 
@@ -435,83 +502,15 @@
 			clearInterval(movex[0]);
 			clearInterval(movey[0]);
 
-			var destination	=	{};
-			destination.x 	=	Math.floor(model.player.x()) + Math.floor(coords.x/24) - 13;
-			destination.y 	=	Math.floor(model.player.y()) + Math.floor(coords.y/24) - 10;
-
-			var loadMapTable	=	[Math.floor((destination.x + 13)/64), Math.floor((destination.x - 13)/64), Math.floor(model.player.x()/64),
-									 Math.floor((destination.y + 10)/64), Math.floor((destination.y - 10)/64), Math.floor(model.player.y()/64)];
-
-			if(loadMapTable[0] !== loadMapTable[2]){
-				loadMap(destination.x + 13, Math.floor(model.player.y()));
-			}
-
-			if(loadMapTable[1] !== loadMapTable[2]){
-				loadMap(destination.x - 13, Math.floor(model.player.y()));
-			}
-
-			if(loadMapTable[3] !== loadMapTable[5]){
-				loadMap(Math.floor(model.player.x()), destination.y + 10);
-			}
-
-			if(loadMapTable[4] !== loadMapTable[5]){
-				loadMap(Math.floor(model.player.x()), destination.y - 10);
-			}
-			
-			if(loadMapTable[0] !== loadMapTable[2] && loadMapTable[3] !== loadMapTable[5]){
-				loadMap(destination.x + 13, destination.y + 10);
-			}
-
-			if(loadMapTable[1] !== loadMapTable[2] && loadMapTable[3] !== loadMapTable[5]){
-				loadMap(destination.x - 13, destination.y + 10);
-			}
-			
-			if(loadMapTable[0] !== loadMapTable[2] && loadMapTable[4] !== loadMapTable[5]){
-				loadMap(destination.x + 13, destination.y - 10);
-			}
-			
-			if(loadMapTable[1] !== loadMapTable[2] && loadMapTable[4] !== loadMapTable[5]){
-				loadMap(destination.x - 13, destination.y - 10);
-			}
-
-			var delta		=	{};
-			delta.x 		=	Math.floor(coords.x/24) - 13;
-			delta.y 		=	Math.floor(coords.y/24) - 10;
-
-			var distance	=	Math.sqrt(delta.x * delta.x + delta.y * delta.y);
-
-			movex 	=	[setInterval(function(){
-				movex[1]++;
-				if(model.isLegalMove(model.player.x() + delta.x/distance, model.player.y())){
-					model.player.x(model.player.x() + delta.x/distance);
-				}
-
-				if(Math.floor(model.player.x()) === destination.x || movex[1] > 26){
-					clearInterval(movex[0]);
-				}
-			}, 300), 0];
-
-			movey 	=	[setInterval(function(){
-				movey[1]++;
-				if(model.isLegalMove(model.player.x(), model.player.y() + delta.y/distance)){
-					model.player.y(model.player.y() + delta.y/distance);
-				}
-				
-				if(Math.floor(model.player.y()) === destination.y || movey[1] > 20){
-					clearInterval(movey[0]);
-				}
-			}, 300), 0];
+			model.player.move(Math.floor(model.player.x()) + Math.floor(coords.x/24) - 13, Math.floor(model.player.y()) + Math.floor(coords.y/24) - 10);
 		})
 
 		return {
-			'loadMap': loadMap,
 			'player': model.player
 		};
 	})(model, canvas);
 
-	controller.player.x(35);
-	controller.player.y(27);
-	controller.loadMap(controller.player.x(), controller.player.y());
+	controller.player.move(35, 27);
 })(
 	document.querySelector("canvas#game-window")
 );
