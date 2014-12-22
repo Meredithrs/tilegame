@@ -322,6 +322,10 @@
 			}
 		})();
 
+		function isLegalMove(x, y){
+			return tiles[mapData[Math.floor(y)][Math.floor(x)]].walkable();
+		}
+
 		function update(){
 			if(mapData){
 				view.drawTerrain(mapToViewport(player.x(), player.y(), 26, 20));
@@ -335,7 +339,8 @@
 		return {
 			'setMapData': setMapData,
 			'mapToViewport': mapToViewport,
-			'player': player
+			'player': player,
+			'isLegalMove': isLegalMove
 		};
 	})(view);
 
@@ -363,19 +368,25 @@
 			delta.y 		=	Math.floor(coords.y/24) - 10;
 
 			var distance	=	Math.sqrt(delta.x * delta.x + delta.y * delta.y);
-			console.log(distance, destination, delta);
 
 			movex 	=	setInterval(function() {
-				model.player.x(model.player.x() + delta.x/distance);
-
+				if(model.isLegalMove(model.player.x() + delta.x/distance, model.player.y())){
+					model.player.x(model.player.x() + delta.x/distance);
+				}else{
+					clearInterval(movex);
+				}
 				if(Math.floor(model.player.x()) === destination.x){
 					clearInterval(movex);
 				}
 			}, 300);
 
 			movey 	=	setInterval(function() {
-				model.player.y(model.player.y() + delta.y/distance);
-
+				if(model.isLegalMove(model.player.x(), model.player.y() + delta.y/distance)){
+					model.player.y(model.player.y() + delta.y/distance);
+				}else{
+					clearInterval(movey);
+				}
+				
 				if(Math.floor(model.player.y()) === destination.y){
 					clearInterval(movey);
 				}
