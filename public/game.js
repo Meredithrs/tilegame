@@ -71,13 +71,41 @@
 	var model	=	(function(view){
 		view.setTileWidth(24);
 		
-		var mapData;
+		var mapData 	=	[];
 
-		function setMapData(_mapData){
-			mapData 	=	_mapData;
+		function setMapData(_mapData, x, y){
+			x 	=	Math.floor(x/64);
+			y 	=	Math.floor(y/64);
+			_mapData.forEach(
+				function(outer_element, outer_index, outer_array){
+					outer_element.forEach(
+						function(inner_element, inner_index, inner_array){
+							if(!mapData[64*y + outer_index]){
+								mapData[64*y + outer_index]	=	[];
+							}
+							mapData[64 * y + outer_index][64 * x + inner_index]	=	inner_element;
+						}
+					);
+				}
+			);
 		}
 
 		var tiles 	=	(function Tiles(){
+			function empty(){
+				function color(){
+					return "black";
+				}
+
+				function walkable(){
+					return false;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
 			function grass(){
 				function color(){
 					return "#73be51";
@@ -273,7 +301,52 @@
 				}
 			}
 
-			return [, grass(), floor(), woodpath(), stonepath(), stonewall(), saltwater(), freshwater(), mud(), swampwater(), dirtpath(), swampgrass(), dirt(), sand()];
+			function blacktile(){
+				function color(){
+					return "black";
+				}
+
+				function walkable(){
+					return true;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			function whitetile(){
+				function color(){
+					return "white";
+				}
+
+				function walkable(){
+					return true;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			function sandstone(){
+				function color(){
+					return "#cdc886";
+				}
+
+				function walkable(){
+					return false;
+				}
+
+				return {
+					"color": color,
+					"walkable": walkable
+				}
+			}
+
+			return [empty(), grass(), floor(), woodpath(), stonepath(), stonewall(), saltwater(), freshwater(), mud(), swampwater(), dirtpath(), swampgrass(), dirt(), sand(), blacktile(), whitetile(), sandstone()];
 		})();
 
 		function mapToViewport(x, y, width, height){
@@ -285,10 +358,10 @@
 			for(var i = y - Math.floor(height/2); i < y + Math.ceil(height/2); i++){
 				var result_layer	=	[];
 				for(var j = x - Math.floor(width/2); j < x + Math.ceil(width/2); j++){
-					if(i > 0 && i < 64){
+					if(mapData && mapData[i]){
 						result_layer.push(tiles[mapData[i][j]]);
 					}else{
-						result_layer.push({});
+						result_layer.push(tiles[0]);
 					}
 				}
 				result.push(result_layer);
@@ -323,11 +396,14 @@
 		})();
 
 		function isLegalMove(x, y){
+			if(!mapData[Math.floor(y)] || mapData[Math.floor(y)][Math.floor(x)]){
+				return false;
+			}
 			return tiles[mapData[Math.floor(y)][Math.floor(x)]].walkable();
 		}
 
 		function update(){
-			if(mapData){
+			if(mapData && mapData[Math.floor(player.y()/64)]){
 				view.drawTerrain(mapToViewport(player.x(), player.y(), 26, 20));
 				view.drawPlayer();
 			}
@@ -347,7 +423,7 @@
 	var controller	=	(function(model, canvas){
 		function loadMap(x, y){
 			$.getJSON("/api/maps/" + x + "/" + y, function(data){
-				model.setMapData(data);
+				model.setMapData(data, x, y);
 			});
 		}
 
@@ -363,11 +439,39 @@
 			destination.x 	=	Math.floor(model.player.x()) + Math.floor(coords.x/24) - 13;
 			destination.y 	=	Math.floor(model.player.y()) + Math.floor(coords.y/24) - 10;
 
-			if(Math.floor((destination.x + 13)/64) !== Math.floor(model.player.x()/64)){
+			var loadMapTable	=	[Math.floor((destination.x + 13)/64), Math.floor((destination.x - 13)/64), Math.floor(model.player.x()/64),
+									 Math.floor((destination.y + 10)/64), Math.floor((destination.y - 10)/64), Math.floor(model.player.y()/64)];
+
+			if(loadMapTable[0] !== loadMapTable[2]){
 				loadMap(destination.x + 13, Math.floor(model.player.y()));
 			}
-			if(Math.floor((destination.x - 13)/64) !== Math.floor(model.player.x()/64)){
+
+			if(loadMapTable[1] !== loadMapTable[2]){
 				loadMap(destination.x - 13, Math.floor(model.player.y()));
+			}
+
+			if(loadMapTable[3] !== loadMapTable[5]){
+				loadMap(Math.floor(model.player.x()), destination.y + 10);
+			}
+
+			if(loadMapTable[4] !== loadMapTable[5]){
+				loadMap(Math.floor(model.player.x()), destination.y - 10);
+			}
+			
+			if(loadMapTable[0] !== loadMapTable[2] && loadMapTable[3] !== loadMapTable[5]){
+				loadMap(destination.x + 13, destination.y + 10);
+			}
+
+			if(loadMapTable[1] !== loadMapTable[2] && loadMapTable[3] !== loadMapTable[5]){
+				loadMap(destination.x - 13, destination.y + 10);
+			}
+			
+			if(loadMapTable[0] !== loadMapTable[2] && loadMapTable[4] !== loadMapTable[5]){
+				loadMap(destination.x + 13, destination.y - 10);
+			}
+			
+			if(loadMapTable[1] !== loadMapTable[2] && loadMapTable[4] !== loadMapTable[5]){
+				loadMap(destination.x - 13, destination.y - 10);
 			}
 
 			var delta		=	{};

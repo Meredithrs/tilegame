@@ -9,4 +9,5 @@ html, body{
 canvas#game-window{
   border: 1px dashed black;
   margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
 }

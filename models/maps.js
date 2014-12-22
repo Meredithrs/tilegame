@@ -2,7 +2,7 @@ module.exports	=	(function(){
 	function getJSON(x, y){
 		var maps	=	[];
 
-		var map 	=	require("./../maps/"+ normalize(x) + "," + normalize(y) + ".js");
+		var map 	=	require("./../maps/"+ normalize(x) + "," + -1*normalize(y) + ".js");
 		maps.push(map);
 
 		var output	=	[];
