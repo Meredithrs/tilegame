@@ -111,7 +111,7 @@
 			}
 
 			function grass(){
-				var colorValue	=	Math.floor(Math.random()*3+51);
+				var colorValue	=	Math.floor(Math.random()*10+510)/10;
 
 				function color(){
 					return "hsl(101.6,45.6%,"+colorValue+"%)";
@@ -256,7 +256,7 @@
 			}
 
 			function mud(){
-				var colorValue	=	Math.floor(Math.random()*3+22);
+				var colorValue	=	Math.floor(Math.random()*30+220)/10;
 
 				function color(){
 					return "hsl(23.5,39%,"+colorValue+"%)";
@@ -303,7 +303,7 @@
 			}
 
 			function dirtpath(){
-				var colorValue	=	Math.floor(Math.random()*3+10);
+				var colorValue	=	Math.floor(Math.random()*30+100)/10;
 
 				function color(){
 					return "hsl(64.7,65.5%,"+colorValue+"%)";
@@ -320,7 +320,7 @@
 			}
 
 			function swampgrass(){
-				var colorValue	=	Math.floor(Math.random()*3+28);
+				var colorValue	=	Math.floor(Math.random()*10+280)/10;
 
 				function color(){
 					return "hsl(133.5,49%,"+colorValue+"%)";
@@ -337,7 +337,7 @@
 			}
 
 			function dirt(){
-				var colorValue	=	Math.floor(Math.random()*3+7);
+				var colorValue	=	Math.floor(Math.random()*30+70)/10;
 
 				function color(){
 					return "hsl(24,38.5%,"+colorValue+"%)";
@@ -354,7 +354,7 @@
 			}
 
 			function sand(){
-				var colorValue	=	Math.floor(Math.random()*3+74);
+				var colorValue	=	Math.floor(Math.random()*30+740)/10;
 
 				function color(){
 					return "hsl(65.5,68.5%,"+colorValue+"%)";
@@ -401,7 +401,7 @@
 			}
 
 			function sandstone(){
-				var colorValue	=	Math.floor(Math.random()*3+66);
+				var colorValue	=	Math.floor(Math.random()*20+660)/10;
 
 				function color(){
 					return "hsl(55.8,41.5%,"+colorValue+"%)";
