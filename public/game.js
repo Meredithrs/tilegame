@@ -351,13 +351,13 @@
 			});
 		}
 
-		var movex, movey;
+		var movex = [], movey = [];
 
 		canvas.addEventListener("click", function(event){
 			var coords 	=	canvas.relMouseCoords(event);
 
-			clearInterval(movex);
-			clearInterval(movey);
+			clearInterval(movex[0]);
+			clearInterval(movey[0]);
 
 			var destination	=	{};
 			destination.x 	=	Math.floor(model.player.x()) + Math.floor(coords.x/24) - 13;
@@ -369,28 +369,27 @@
 
 			var distance	=	Math.sqrt(delta.x * delta.x + delta.y * delta.y);
 
-			movex 	=	setInterval(function() {
+			movex 	=	[setInterval(function(){
+				movex[1]++;
 				if(model.isLegalMove(model.player.x() + delta.x/distance, model.player.y())){
 					model.player.x(model.player.x() + delta.x/distance);
-				}else{
-					clearInterval(movex);
 				}
-				if(Math.floor(model.player.x()) === destination.x){
-					clearInterval(movex);
-				}
-			}, 300);
 
-			movey 	=	setInterval(function() {
+				if(Math.floor(model.player.x()) === destination.x || movex[1] > 26){
+					clearInterval(movex[0]);
+				}
+			}, 300), 0];
+
+			movey 	=	[setInterval(function(){
+				movey[1]++;
 				if(model.isLegalMove(model.player.x(), model.player.y() + delta.y/distance)){
 					model.player.y(model.player.y() + delta.y/distance);
-				}else{
-					clearInterval(movey);
 				}
 				
-				if(Math.floor(model.player.y()) === destination.y){
-					clearInterval(movey);
+				if(Math.floor(model.player.y()) === destination.y || movey[1] > 20){
+					clearInterval(movey[0]);
 				}
-			}, 300);
+			}, 300), 0];
 		})
 
 		return {
