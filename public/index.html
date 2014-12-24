@@ -6,7 +6,17 @@
 	<title>Tilescape by Meredith</title>
 </head>
 <body>
-	<canvas id="game-window" width="624" height="480"></canvas>
+	<h1>Tilescape</h1>
+	<div class="game-container">
+		<div class="left-column">
+			<canvas id="game-window" width="528" height="336"></canvas>
+			<div id="chat-window">Chat window</div>
+		</div>
+		<div class="right-column">
+			<canvas id="minimap" height="168" width="250">Minimap</canvas>
+			<div id="main-interface">Main interface</div>
+		</div>
+	</div>
 	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 	<script src="game.js"></script>
 </body>
