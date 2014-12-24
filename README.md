@@ -1,6 +1,6 @@
-# 2Dscape by Meredith
+# Tilescape by Meredith
 
-A 2-Dimensional recreation of the popular MMORPG RuneScape
+A 2-Dimensional recreation of the popular MMORPG RuneScape.
 
 ## Maps
 
@@ -18,4 +18,4 @@ In no particular order, major items only:
 - Minimap
 
 ## Demo
-A demo can be found [here](https://tilescape.herokuapp.com/)
+A demo can be found [here](https://tilescape.herokuapp.com/).
