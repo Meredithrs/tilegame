@@ -10,6 +10,7 @@ There's a desperate need for more maps. If you want to contribute, please downlo
 
 In no particular order, major items only:
 - Add object and NPC layers
+- Remove old maps when they're well out of view
 - Object interaction
 - Add inventory, etc. interfaces
 - System messages
