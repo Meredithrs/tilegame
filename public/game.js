@@ -34,7 +34,7 @@
 		}
 
 		function drawPlayer(){
-			drawTile(13, 10, {color: function(){
+			drawTile(11, 7, {color: function(){
 				return "white";
 			}});
 		}
@@ -469,39 +469,39 @@
 				clearInterval(movex[0]);
 				clearInterval(movey[0]);
 
-				var loadMapTable	=	[Math.floor((_x + 13)/64), Math.floor((_x - 13)/64), Math.floor(getX()/64),
-										 Math.floor((_y + 10)/64), Math.floor((_y - 10)/64), Math.floor(getY()/64)];
+				var loadMapTable	=	[Math.floor((_x + 11)/64), Math.floor((_x - 11)/64), Math.floor(getX()/64),
+										 Math.floor((_y + 7)/64), Math.floor((_y - 7)/64), Math.floor(getY()/64)];
 			
 				if(loadMapTable[0] !== loadMapTable[2]){
-					loadMap(_x + 13, Math.floor(getY()));
+					loadMap(_x + 11, Math.floor(getY()));
 				}
 
 				if(loadMapTable[1] !== loadMapTable[2]){
-					loadMap(_x - 13, Math.floor(getY()));
+					loadMap(_x - 11, Math.floor(getY()));
 				}
 
 				if(loadMapTable[3] !== loadMapTable[5]){
-					loadMap(Math.floor(getX()), _y + 10);
+					loadMap(Math.floor(getX()), _y + 7);
 				}
 
 				if(loadMapTable[4] !== loadMapTable[5]){
-					loadMap(Math.floor(getX()), _y - 10);
+					loadMap(Math.floor(getX()), _y - 7);
 				}
 				
 				if(loadMapTable[0] !== loadMapTable[2] && loadMapTable[3] !== loadMapTable[5]){
-					loadMap(_x + 13, _y + 10);
+					loadMap(_x + 11, _y + 7);
 				}
 
 				if(loadMapTable[1] !== loadMapTable[2] && loadMapTable[3] !== loadMapTable[5]){
-					loadMap(_x - 13, _y + 10);
+					loadMap(_x - 11, _y + 7);
 				}
 				
 				if(loadMapTable[0] !== loadMapTable[2] && loadMapTable[4] !== loadMapTable[5]){
-					loadMap(_x + 13, _y - 10);
+					loadMap(_x + 11, _y - 7);
 				}
 				
 				if(loadMapTable[1] !== loadMapTable[2] && loadMapTable[4] !== loadMapTable[5]){
-					loadMap(_x - 13, _y - 10);
+					loadMap(_x - 11, _y - 7);
 				}
 
 				var delta		=	{};
@@ -516,7 +516,7 @@
 						x 	=	getX() + delta.x/distance;
 					}
 
-					if(Math.floor(getX()) === _x || movex[1] > 26){
+					if(Math.floor(getX()) === _x || movex[1] > 22){
 						clearInterval(movex[0]);
 					}
 				}, 300), 0];
@@ -527,7 +527,7 @@
 						y 	=	(getY() + delta.y/distance);
 					}
 					
-					if(Math.floor(getY()) === _y || movey[1] > 20){
+					if(Math.floor(getY()) === _y || movey[1] > 14){
 						clearInterval(movey[0]);
 					}
 				}, 300), 0];
@@ -550,7 +550,7 @@
 
 		function update(){
 			if(mapData && mapData[Math.floor(player.y()/64)]){
-				view.drawTerrain(mapToViewport(player.x(), player.y(), 26, 20));
+				view.drawTerrain(mapToViewport(player.x(), player.y(), 22, 14));
 				view.drawPlayer();
 			}
 			window.requestAnimationFrame(update);
@@ -571,7 +571,7 @@
 		canvas.addEventListener("click", function(event){
 			var coords 	=	canvas.relMouseCoords(event);
 
-			model.player.move(Math.floor(model.player.x()) + Math.floor(coords.x/24) - 13, Math.floor(model.player.y()) + Math.floor(coords.y/24) - 10);
+			model.player.move(Math.floor(model.player.x()) + Math.floor(coords.x/24) - 11, Math.floor(model.player.y()) + Math.floor(coords.y/24) - 7);
 		})
 
 		return {
