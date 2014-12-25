@@ -1,6 +1,6 @@
-(function(canvas, mainInterface){
+(function(canvas, mainInterface, chatInterface){
 
-	var view	=	(function(canvas){
+	var view	=	(function(canvas, mainInterface, chatInterface){
 		var width	=	24;
 		var context	=	canvas.getContext("2d");
 
@@ -59,6 +59,27 @@
 			}
 		}
 
+		function Chatbox(){
+			var messages 	=	[];
+
+			function send(message, color){
+				var messageElements	=	chatInterface.querySelectorAll(".message");
+				if(messageElements.length > messages.length){
+					chatInterface.removeChild(messageElements[0]);
+				}
+				var msg 	=	document.createElement("div");
+				msg.classList.add("message");
+				msg.style.color 	=	color || "black";
+				msg.textContent 	=	message;
+				chatInterface.appendChild(msg);
+				msg.scrollIntoView(true);
+			}
+
+			return {
+				'send': send
+			}
+		}
+
 		(function Tabs(){
 			var tabElements 	=	mainInterface.querySelectorAll(".tab");
 			for(var i = 0; i < tabElements.length; ++i){
@@ -111,9 +132,10 @@
 			'setTileWidth': setTileWidth,
 			'drawTerrain': drawTerrain,
 			'drawPlayer': drawPlayer,
-			'spellbook': Spellbook()
+			'spellbook': Spellbook(),
+			'chat': Chatbox()
 		};
-	})(canvas, mainInterface);
+	})(canvas, mainInterface, chatInterface);
 
 	var model	=	(function(view){
 		view.setTileWidth(24);
@@ -694,6 +716,8 @@
 			view.spellbook.addSpell(spellbook[i]);
 		}
 
+		view.chat.send("Welcome to TileScape.");
+
 		return {
 			'setMapData': setMapData,
 			'mapToViewport': mapToViewport,
@@ -717,5 +741,6 @@
 	controller.player.getSpellbook().teleportToLumbridge.cast();
 })(
 	document.querySelector("canvas#game-window"),
-	document.querySelector("div#main-interface")
+	document.querySelector("div#main-interface"),
+	document.querySelector("div#chat-window")
 );
