@@ -1,4 +1,4 @@
-(function(canvas){
+(function(canvas, mainInterface){
 
 	var view	=	(function(canvas){
 		var width	=	24;
@@ -39,6 +39,52 @@
 			}});
 		}
 
+		function Spellbook(){
+			var spells 			=	[];
+			var magicInterface 	=	mainInterface.querySelector("#magic");
+
+			function addSpell(spell){
+				spells.push(spell);
+				var spellButton 			=	document.createElement("button");
+				spellButton.setAttribute('title', spell.getName());
+				spellButton.style.backgroundImage 	=	"url('images/spells/"+spell.getImage()+"')";
+				spellButton.addEventListener("click", function(event){
+					spell.cast();
+				});
+				magicInterface.appendChild(spellButton);
+			}
+
+			return {
+				'addSpell': addSpell
+			}
+		}
+
+		(function Tabs(){
+			var tabElements 	=	mainInterface.querySelectorAll(".tab");
+			for(var i = 0; i < tabElements.length; ++i){
+				tabElements[i].addEventListener("click", function(){
+					if(!this.classList.contains("active")){
+						var tabs = this.parentNode.parentNode.querySelectorAll(".tab");
+						var content = this.parentNode.parentNode.querySelectorAll(".tab-content");
+						var j;
+
+						for(var i = 0; i < tabs.length; ++i){
+							tabs[i].classList.remove("active");
+							content[i].classList.remove("shown");
+							if(tabs[i] === this){
+								j = i;
+							}
+						}
+
+						this.classList.add("active");
+						content[j].classList.add("shown")
+					}
+				})
+			}
+			tabElements[6].click();
+		})();
+
+
 
 		function relMouseCoords(event){
 		    var totalOffsetX = 0;
@@ -64,9 +110,10 @@
 		return {
 			'setTileWidth': setTileWidth,
 			'drawTerrain': drawTerrain,
-			'drawPlayer': drawPlayer
+			'drawPlayer': drawPlayer,
+			'spellbook': Spellbook()
 		};
-	})(canvas);
+	})(canvas, mainInterface);
 
 	var model	=	(function(view){
 		view.setTileWidth(24);
@@ -447,9 +494,81 @@
 			});
 		}
 
+		function Spellbook(player){
+			function TeleportToLumbridge(_player){
+				var player = _player;
+				function cast(){
+					player.teleport(35, 27);
+				}
+
+				function getName(){
+					return "Teleport to Lumbridge";
+				}
+
+				function getImage(){
+					return "teleporttolumbridge.png";
+				}
+
+				return {
+					'cast': cast,
+					'getName': getName,
+					'getImage': getImage
+				}
+			}
+
+			function TeleportToAlKharid(_player){
+				var player = _player;
+				function cast(){
+					player.teleport(97, 87);
+				}
+
+				function getName(){
+					return "Teleport to Al Kharid";
+				}
+
+				function getImage(){
+					return "teleporttoalkharid.png";
+				}
+
+				return {
+					'cast': cast,
+					'getName': getName,
+					'getImage': getImage
+				}
+			}
+
+			function TeleportToDraynorVillage(_player){
+				var player = _player;
+				function cast(){
+					player.teleport(-88, -3);
+				}
+
+				function getName(){
+					return "Teleport to Draynor Village";
+				}
+
+				function getImage(){
+					return "teleporttodraynorvillage.png";
+				}
+
+				return {
+					'cast': cast,
+					'getName': getName,
+					'getImage': getImage
+				}
+			}
+
+			return {
+				'teleportToLumbridge': TeleportToLumbridge(player),
+				'teleportToAlKharid': TeleportToAlKharid(player),
+				'teleportToDraynorVillage': TeleportToDraynorVillage(player)
+			}
+		}
+
 		var player 	=	(function(){
 			var x, y;
 			var movex = [], movey = [];
+			var spellbook;
 
 			function getX(){
 				return x;
@@ -463,6 +582,15 @@
 				x 	=	_x;
 				y 	=	_y;
 				loadMap(x, y);
+				move(x, y);
+			}
+
+			function addSpellbook(_spellbook){
+				spellbook = _spellbook;
+			}
+
+			function getSpellbook(){
+				return spellbook;
 			}
 
 			function move(_x, _y){
@@ -537,7 +665,9 @@
 				'x': getX,
 				'y': getY,
 				'move': move,
-				'teleport': teleport
+				'teleport': teleport,
+				'addSpellbook': addSpellbook,
+				'getSpellbook': getSpellbook
 			}
 		})();
 
@@ -549,7 +679,7 @@
 		}
 
 		function update(){
-			if(mapData && mapData[Math.floor(player.y()/64)]){
+			if(mapData && mapData[Math.floor(player.y())]){
 				view.drawTerrain(mapToViewport(player.x(), player.y(), 22, 14));
 				view.drawPlayer();
 			}
@@ -557,6 +687,12 @@
 		}
 
 		window.requestAnimationFrame(update);
+
+		player.addSpellbook(new Spellbook(player));
+		var spellbook 	=	player.getSpellbook()
+		for(var i in spellbook){
+			view.spellbook.addSpell(spellbook[i]);
+		}
 
 		return {
 			'setMapData': setMapData,
@@ -567,7 +703,6 @@
 	})(view);
 
 	var controller	=	(function(model, canvas){
-
 		canvas.addEventListener("click", function(event){
 			var coords 	=	canvas.relMouseCoords(event);
 
@@ -579,7 +714,8 @@
 		};
 	})(model, canvas);
 
-	controller.player.teleport(35, 27);
+	controller.player.getSpellbook().teleportToLumbridge.cast();
 })(
-	document.querySelector("canvas#game-window")
+	document.querySelector("canvas#game-window"),
+	document.querySelector("div#main-interface")
 );

@@ -40,12 +40,170 @@ canvas#minimap{
 }
 
 div#main-interface{
-	border: 1px dashed red;
-	width: 250px;
-	height: 331px;
-	background-color: rgba(0, 0, 0, .5);
+	width: 246px;
+	height: 335px;
 	color: #F5F5F5;
 	font-family: 'Dosis', sans-serif;
+	background-image: url("images/interface/maininterfacebackground.png");
+	position: relative;
+}
+
+div.tab-row{
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+div.tab-row:last-child{
+	bottom: 2px;
+	position: absolute;
+}
+
+div.tab-row>div.tab{
+	background-image: url("images/interface/tab.png");
+	width: 33px;
+	height: 36px;
+}
+
+div.tab-row>div.tab.active{
+	background-image: url("images/interface/activetab.png");
+}
+
+div.tab-row:last-child>div.tab{
+	background-image: url("images/interface/bottomtab.png");
+}
+
+div.tab-row:last-child>div.tab.active{
+	background-image: url("images/interface/bottomtabactive.png");
+}
+
+div.tab-row:first-child>div.tab:first-child{
+	background-image: url("images/interface/toplefttab.png");
+	margin-left: 3px;
+	width: 38px;
+	height: 36px;
+}
+
+div.tab-row:first-child>div.tab:first-child.active{
+	background-image: url("images/interface/toplefttabactive.png");
+}
+
+div.tab-row:first-child>div.tab:last-child{
+	background-image: url("images/interface/toprighttab.png");
+	margin-right: 2px;
+	width: 38px;
+	height: 36px;
+}
+
+div.tab-row:first-child>div.tab:last-child.active{
+	background-image: url("images/interface/toprighttabactive.png");
+}
+
+div.tab-row:last-child>div.tab:first-child{
+	background-image: url("images/interface/bottomlefttab.png");
+	margin-left: 3px;
+	width: 38px;
+	height: 36px;
+}
+
+div.tab-row:last-child>div.tab:first-child.active{
+	background-image: url("images/interface/bottomlefttabactive.png");
+}
+
+div.tab-row:last-child>div.tab:last-child{
+	background-image: url("images/interface/bottomrighttab.png");
+	margin-right: 2px;
+	width: 38px;
+	height: 36px;
+}
+
+div.tab-row:last-child>div.tab:last-child.active{
+	background-image: url("images/interface/bottomrighttabactive.png");
+}
+
+div.tab-row:first-child>div.tab>div.tab-icon, div.tab-row:last-child>div.tab>div.tab-icon{
+	background-image: url("images/interface/tabicons.png");
+	height: 100%;
+	width: 100%;
+	background-position: -3px 0px;
+}
+
+div.tab-row:first-child>div.tab:nth-child(2)>div.tab-icon{
+	background-position: -41px 0px;
+}
+
+div.tab-row:first-child>div.tab:nth-child(3)>div.tab-icon{
+	background-position: -74px 0px;
+}
+
+div.tab-row:first-child>div.tab:nth-child(4)>div.tab-icon{
+	background-position: -107px 0px;
+}
+
+div.tab-row:first-child>div.tab:nth-child(5)>div.tab-icon{
+	background-position: -140px 0px;
+}
+
+div.tab-row:first-child>div.tab:nth-child(6)>div.tab-icon{
+	background-position: -173px 0px;
+}
+
+div.tab-row:first-child>div.tab:nth-child(7)>div.tab-icon{
+	background-position: -205px 0px;
+}
+
+div.tab-row:last-child>div.tab:nth-child(1)>div.tab-icon{
+	background-position: -3px 37px;
+}
+
+div.tab-row:last-child>div.tab:nth-child(2)>div.tab-icon{
+	background-position: -41px 37px;
+}
+
+div.tab-row:last-child>div.tab:nth-child(3)>div.tab-icon{
+	background-position: -74px 37px;
+}
+
+div.tab-row:last-child>div.tab:nth-child(4)>div.tab-icon{
+	background-position: -107px 37px;
+}
+
+div.tab-row:last-child>div.tab:nth-child(5)>div.tab-icon{
+	background-position: -140px 37px;
+}
+
+div.tab-row:last-child>div.tab:nth-child(6)>div.tab-icon{
+	background-position: -173px 37px;
+}
+
+div.tab-row:last-child>div.tab:nth-child(7)>div.tab-icon{
+	background-position: -205px 37px;
+}
+
+div.tab-content.shown{
+	display: block;
+}
+
+div.tab-content{
+	display: none;
+}
+
+
+div#magic.shown{
+	max-height: 262px;
+	width: 186px;
+	margin: auto;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+div#magic.shown>button{
+	height: 26px;
+	width: 26px;
+	margin: 5%;
+	background-color: transparent;
+	border: 0;
+	font-family:'runescape_chat_07regular';
 }
 
 div#chat-window{
