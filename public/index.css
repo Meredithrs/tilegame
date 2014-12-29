@@ -247,14 +247,22 @@ img.sprite{
 	display: none;
 }
 
-.github{
+.github, .html5{
 	margin: 8px auto;
 	height: 64px;
 	width: 64px;
-	background-image: url("images/github/GitHub-Mark-Light-64px.png");
+	display: inline-block;
 }
 
-.github>a{
+.github{
+	background-image: url("images/logos/GitHub-Mark-Light-64px.png");
+}
+
+.html5{
+	background-image: url("http://www.w3.org/html/logo/badge/html5-badge-h-solo.png");
+}
+
+.github>a, .html5>a{
 	display: block;
 	height: 100%;
 	width: 100%;
