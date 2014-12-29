@@ -246,3 +246,16 @@ div#chat-window>.message{
 img.sprite{
 	display: none;
 }
+
+.github{
+	margin: 8px auto;
+	height: 64px;
+	width: 64px;
+	background-image: url("images/github/GitHub-Mark-Light-64px.png");
+}
+
+.github>a{
+	display: block;
+	height: 100%;
+	width: 100%;
+}
