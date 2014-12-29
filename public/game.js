@@ -744,7 +744,7 @@
 			}
 
 			function isNear(x, y){
-				return ((getX() - x) * (getX() - x) + (getY() - y) * (getY() - y)) < 4;
+				return ((getX() - x) * (getX() - x) + (getY() - y) * (getY() - y)) <= 2;
 			}
 
 			function move(_x, _y, callback){
