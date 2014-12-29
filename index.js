@@ -25,7 +25,8 @@ router.use(function(req, res, next) {
 
 router.route('/maps/:x/:y').get(function(req, res){
 	var maps	=	require("./models/maps.js");
-	res.json(maps.getJSON(req.params.x, req.params.y));
+	maps.setCoordinates(req.params.x, req.params.y);
+	res.json({"terrain": maps.getTerrain(), "objects": maps.getObjects()});
 });
 
 app.use(express.static(__dirname + '/public'));

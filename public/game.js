@@ -1,6 +1,6 @@
-(function(canvas, mainInterface, chatInterface){
+(function(canvas, objectsheet, mainInterface, chatInterface){
 
-	var view	=	(function(canvas, mainInterface, chatInterface){
+	var view	=	(function(canvas, objectsheet, mainInterface, chatInterface){
 		var width	=	24;
 		var context	=	canvas.getContext("2d");
 
@@ -18,6 +18,10 @@
 			context.fill();
 		}
 
+		function drawObject(x, y, position){
+			context.drawImage(objectsheet, position * 24, 0, 24, 48, x * width, (y - 1) * width, 24, 48);
+		}
+
 		function drawTerrain(map){
 			if(!map){
 				return false;
@@ -31,6 +35,18 @@
 					);
 				}
 			);
+		}
+
+		function drawObjects(objects, x, y, w, h){
+			x 	=	Math.floor(x);
+			y 	=	Math.floor(y);
+			for(var i = y - Math.floor(h/2); i < y + Math.ceil(h/2); i++){
+				for(var j = x - Math.floor(w/2); j < x + Math.ceil(w/2); j++){
+					if(objects["0" + i] && objects["0" + i]["0" + j]){
+						drawObject(j - (x - Math.floor(w/2)), i - (y - Math.floor(h/2)), objects["0" + i]["0" + j].position);
+					}
+				}
+			}
 		}
 
 		function drawPlayer(){
@@ -131,36 +147,52 @@
 		return {
 			'setTileWidth': setTileWidth,
 			'drawTerrain': drawTerrain,
+			'drawObjects': drawObjects,
 			'drawPlayer': drawPlayer,
 			'spellbook': Spellbook(),
 			'chat': Chatbox()
 		};
-	})(canvas, mainInterface, chatInterface);
+	})(canvas, objectsheet, mainInterface, chatInterface);
 
 	var model	=	(function(view){
 		view.setTileWidth(24);
 		
-		var mapData 	=	[];
+		var terrain 	=	[];
+		var objectLayer	=	{};
+		var previousTimestamp, fps;
 
 		function setMapData(_mapData, x, y){
-			x 	=	Math.floor(x/64);
-			y 	=	Math.floor(y/64);
-			_mapData.forEach(
+			x 	=	Math.floor(x/64)*64;
+			y 	=	Math.floor(y/64)*64;
+			_mapData.terrain.forEach(
 				function(outer_element, outer_index, outer_array){
 					outer_element.forEach(
 						function(inner_element, inner_index, inner_array){
-							if(!mapData[64*y + outer_index]){
-								mapData[64*y + outer_index]	=	[];
+							if(!terrain[y + outer_index]){
+								terrain[y + outer_index]	=	[];
 							}
 							if(tiles[inner_element].color){
-								mapData[64 * y + outer_index][64 * x + inner_index]	=	tiles[inner_element];
+								terrain[y + outer_index][x + inner_index]	=	tiles[inner_element];
 							}else{
-								mapData[64 * y + outer_index][64 * x + inner_index]	=	new tiles[inner_element]();
+								terrain[y + outer_index][x + inner_index]	=	new tiles[inner_element]();
 							}							
 						}
 					);
 				}
 			);
+
+			for(var _y in _mapData.objects){
+				if(_mapData.objects.hasOwnProperty(_y)) {
+					for(var _x in _mapData.objects[_y]){
+						if(_mapData.objects[_y].hasOwnProperty(_x)){
+							if(!objectLayer[y + _y]){
+								objectLayer[y + _y]	=	{};
+							}
+							objectLayer[y + _y][x + _x]	=	new objects[_mapData.objects[_y][_x]]();
+						}
+					}
+				}
+			}
 		}
 
 		var tiles 	=	(function Tiles(){
@@ -489,6 +521,98 @@
 			return [empty(), grass, floor(), woodpath(), stonepath(), stonewall(), saltwater, freshwater, mud, swampwater, dirtpath, swampgrass, dirt, sand, blacktile(), whitetile(), sandstone];
 		})();
 
+		var objects 	=	(function Objects(){
+			function FreshwaterFish(){
+				function click(){
+					view.chat.send("This is a freshwater fishing spot");
+				}
+
+				return {
+					"click": click,
+					"position": 0
+				}
+			}
+
+			function SaltwaterFish(){
+				function click(){
+					view.chat.send("This is a saltwater fishing spot");
+				}
+
+				return {
+					"click": click,
+					"position": 1
+				}
+			}
+
+			function RoundTree(){
+				function click(){
+					view.chat.send("This is a round tree");
+				}
+
+				return {
+					"click": click,
+					"position": 2
+				}
+			}
+
+			function PointyTree(){
+				function click(){
+					view.chat.send("This is a pointy tree");
+				}
+
+				return {
+					"click": click,
+					"position": 3
+				}
+			}
+
+			function Oak(){
+				function click(){
+					view.chat.send("This is an oak tree");
+				}
+
+				return {
+					"click": click,
+					"position": 4
+				}
+			}
+
+			function DeadTree(){
+				function click(){
+					view.chat.send("This is a dead tree");
+				}
+
+				return {
+					"click": click,
+					"position": 5
+				}
+			}
+
+			function Stump(){
+				function click(){
+					view.chat.send("This is a stump");
+				}
+
+				return {
+					"click": click,
+					"position": 6
+				}
+			}
+
+			function Willow(){
+				function click(){
+					view.chat.send("This is a willow");
+				}
+
+				return {
+					"click": click,
+					"position": 7
+				}
+			}
+
+			return [FreshwaterFish, SaltwaterFish, RoundTree, PointyTree, Oak, DeadTree, Stump, Willow];
+		})();
+
 		function mapToViewport(x, y, width, height){
 			var result	=	[];
 
@@ -498,8 +622,8 @@
 			for(var i = y - Math.floor(height/2); i < y + Math.ceil(height/2); i++){
 				var result_layer	=	[];
 				for(var j = x - Math.floor(width/2); j < x + Math.ceil(width/2); j++){
-					if(mapData && mapData[i]){
-						result_layer.push(mapData[i][j]);
+					if(terrain && terrain[i]){
+						result_layer.push(terrain[i][j]);
 					}else{
 						result_layer.push(tiles[0]);
 					}
@@ -615,7 +739,15 @@
 				return spellbook;
 			}
 
-			function move(_x, _y){
+			function isMoving(){
+				return !movex[0] && !movey[0];
+			}
+
+			function isNear(x, y){
+				return ((getX() - x) * (getX() - x) + (getY() - y) * (getY() - y)) < 4;
+			}
+
+			function move(_x, _y, callback){
 				clearInterval(movex[0]);
 				clearInterval(movey[0]);
 
@@ -660,14 +792,24 @@
 
 				var distance	=	Math.sqrt(delta.x * delta.x + delta.y * delta.y);
 
+				var oldPosition	= 	{};
+				oldPosition.x 	=	getX();
+				oldPosition.y 	=	getY();
+
 				movex 	=	[setInterval(function(){
 					movex[1]++;
 					if(isLegalMove(getX() + delta.x/distance, getY())){
 						x 	=	getX() + delta.x/distance;
 					}
 
+					if(isNear(oldPosition.x + delta.x, oldPosition.y + delta.y) && callback){
+						callback();
+						callback 	=	false;
+					}
+
 					if(Math.floor(getX()) === _x || movex[1] > 22){
 						clearInterval(movex[0]);
+						movex[0] 	=	false;
 					}
 				}, 300), 0];
 
@@ -676,9 +818,15 @@
 					if(model.isLegalMove(getX(), getY() + delta.y/distance)){
 						y 	=	(getY() + delta.y/distance);
 					}
+
+					if(isNear(oldPosition.x + delta.x, oldPosition.y + delta.y) && callback){
+						callback();
+						callback 	=	false;
+					}
 					
 					if(Math.floor(getY()) === _y || movey[1] > 14){
 						clearInterval(movey[0]);
+						movey[0] 	=	false;
 					}
 				}, 300), 0];
 			}
@@ -694,16 +842,42 @@
 		})();
 
 		function isLegalMove(x, y){
-			if(!mapData[Math.floor(y)] || !mapData[Math.floor(y)][Math.floor(x)]){
+			x 	=	Math.floor(x);
+			y 	=	Math.floor(y);
+			if(!terrain[y] || !terrain[y][x]){
 				return false;
 			}
-			return mapData[Math.floor(y)][Math.floor(x)].walkable();
+
+			if(objectLayer["0" + y] && objectLayer["0" + y]["0" + x]){
+				return false;
+			}
+
+			return terrain[y][x].walkable();
 		}
 
-		function update(){
-			if(mapData && mapData[Math.floor(player.y())]){
+		var object 	=	(function(){
+			function at(x, y){
+				if(objectLayer["0" + y] && objectLayer["0" + y]["0" + x]){
+					return objectLayer["0" + y]["0" + x];
+				}else{
+					return {"click": function(){}};
+				}
+			}
+
+			return {
+				"at": at
+			};
+		})();
+
+		function update(timestamp){
+			if(!!previousTimestamp){
+				fps 	=	Math.floor(1/(timestamp-previousTimestamp) * 10000)/10;
+			}
+			previousTimestamp = timestamp;
+			if(terrain && terrain[Math.floor(player.y())]){
 				view.drawTerrain(mapToViewport(player.x(), player.y(), 22, 14));
 				view.drawPlayer();
+				view.drawObjects(objectLayer, player.x(), player.y(), 22, 14);
 			}
 			window.requestAnimationFrame(update);
 		}
@@ -722,6 +896,7 @@
 			'setMapData': setMapData,
 			'mapToViewport': mapToViewport,
 			'player': player,
+			'object': object,
 			'isLegalMove': isLegalMove
 		};
 	})(view);
@@ -729,8 +904,9 @@
 	var controller	=	(function(model, canvas){
 		canvas.addEventListener("click", function(event){
 			var coords 	=	canvas.relMouseCoords(event);
-
-			model.player.move(Math.floor(model.player.x()) + Math.floor(coords.x/24) - 11, Math.floor(model.player.y()) + Math.floor(coords.y/24) - 7);
+			var x 		=	Math.floor(model.player.x()) + Math.floor(coords.x/24) - 11;
+			var y 		=	Math.floor(model.player.y()) + Math.floor(coords.y/24) - 7;
+			model.player.move(x, y, model.object.at(x, y).click);
 		})
 
 		return {
@@ -741,6 +917,7 @@
 	controller.player.getSpellbook().teleportToLumbridge.cast();
 })(
 	document.querySelector("canvas#game-window"),
+	document.querySelector("img.sprite"),
 	document.querySelector("div#main-interface"),
 	document.querySelector("div#chat-window")
 );

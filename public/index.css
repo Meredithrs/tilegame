@@ -242,3 +242,7 @@ div#chat-window>.message{
 ::-webkit-scrollbar-thumb:hover{
     -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.3); 
 }
+
+img.sprite{
+	display: none;
+}

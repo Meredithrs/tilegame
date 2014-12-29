@@ -1,9 +1,17 @@
 module.exports	=	(function(){
-	function getJSON(x, y){
+	var map;
+	function setCoordinates(x, y){
+		try{
+			map 	=	require("./../maps/"+ normalize(x) + "," + 1*normalize(y) + ".js");
+		}catch(exception){
+			map 	=	undefined;
+		}
+	}
+
+	function getTerrain(){
 		var maps	=	[];
 
-		try{
-			var map 	=	require("./../maps/"+ normalize(x) + "," + 1*normalize(y) + ".js");
+		if(map){
 			maps.push(map);
 
 			var output	=	[];
@@ -25,7 +33,33 @@ module.exports	=	(function(){
 				}
 			);
 			return output;
-		}catch(exception){
+		}else{
+			return [];
+		}
+	}
+
+	function getObjects(){
+		if(!map.tilesets || !map.tilesets[1]){
+			return [];
+		}
+		var gidOffset 	=	map.tilesets[1].firstgid;
+		if(map.layers[1] && map.layers[1].objects){
+			var objects		=	map.layers[1].objects;
+			var result 		=	{};
+
+			for(var i = 0; i < objects.length; i++){
+				var y 	=	objects[i].y/25 - 1;
+				var x 	=	objects[i].x/25;
+				var gid	=	objects[i].gid - gidOffset;
+
+				if(!result[y]){
+					result[y] 	=	{};
+				}
+				result[y][x] 	=	gid;
+			}
+
+			return result;
+		}else{
 			return [];
 		}
 	}
@@ -35,6 +69,8 @@ module.exports	=	(function(){
 	}
 
 	return {
-		'getJSON': getJSON
+		'getTerrain': getTerrain,
+		'getObjects': getObjects,
+		'setCoordinates': setCoordinates
 	}
 })();
