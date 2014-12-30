@@ -1,8 +1,12 @@
 module.exports	=	(function(){
 	var map;
+	var _x, _y;
 	function setCoordinates(x, y){
 		try{
-			map 	=	require("./../maps/"+ normalize(x) + "," + 1*normalize(y) + ".js");
+			_x 		=	normalize(x);
+			_y 		=	normalize(y);
+			map 	=	require("./../maps/"+ _x + "," + _y + ".js");
+
 		}catch(exception){
 			map 	=	undefined;
 		}
@@ -48,8 +52,8 @@ module.exports	=	(function(){
 			var result 		=	{};
 
 			for(var i = 0; i < objects.length; i++){
-				var y 	=	objects[i].y/25 - 1;
-				var x 	=	objects[i].x/25;
+				var y 	=	objects[i].y/25 + 64 * _y - 1 ;
+				var x 	=	objects[i].x/25 + 64 * _x;
 				var gid	=	objects[i].gid - gidOffset;
 
 				if(!result[y]){

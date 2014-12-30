@@ -42,8 +42,8 @@
 			y 	=	Math.floor(y);
 			for(var i = y - Math.floor(h/2); i < y + Math.ceil(h/2); i++){
 				for(var j = x - Math.floor(w/2); j < x + Math.ceil(w/2); j++){
-					if(objects["0" + i] && objects["0" + i]["0" + j]){
-						drawObject(j - (x - Math.floor(w/2)), i - (y - Math.floor(h/2)), objects["0" + i]["0" + j].position);
+					if(objects[i] && objects[i][j]){
+						drawObject(j - (x - Math.floor(w/2)), i - (y - Math.floor(h/2)), objects[i][j].position);
 					}
 				}
 			}
@@ -185,10 +185,10 @@
 				if(_mapData.objects.hasOwnProperty(_y)) {
 					for(var _x in _mapData.objects[_y]){
 						if(_mapData.objects[_y].hasOwnProperty(_x)){
-							if(!objectLayer[y + _y]){
-								objectLayer[y + _y]	=	{};
+							if(!objectLayer[_y]){
+								objectLayer[_y]	=	{};
 							}
-							objectLayer[y + _y][x + _x]	=	new objects[_mapData.objects[_y][_x]]();
+							objectLayer[_y][_x]	=	new objects[_mapData.objects[_y][_x]]();
 						}
 					}
 				}
@@ -610,7 +610,50 @@
 				}
 			}
 
-			return [FreshwaterFish, SaltwaterFish, RoundTree, PointyTree, Oak, DeadTree, Stump, Willow];
+			function WillowStump(){
+				function click(){
+					view.chat.send("This is a willow stump");
+				}
+
+				return {
+					"click": click,
+					"position": 8
+				}
+			}
+
+			function Cactus(){
+				function click(){
+					view.chat.send("This is a cactus");
+				}
+
+				return {
+					"click": click,
+					"position": 9
+				}
+			}
+
+			function Palm(){
+				function click(){
+					view.chat.send("This is a palm");
+				}
+
+				return {
+					"click": click,
+					"position": 10
+				}
+			}
+
+			function Rockslide(){
+				function click(){
+					view.chat.send("This is a rockslide");
+				}
+
+				return {
+					"click": click,
+					"position": 11
+				}
+			}
+			return [FreshwaterFish, SaltwaterFish, RoundTree, PointyTree, Oak, DeadTree, Stump, Willow, WillowStump, Cactus, Palm, Rockslide];
 		})();
 
 		function mapToViewport(x, y, width, height){
@@ -848,7 +891,7 @@
 				return false;
 			}
 
-			if(objectLayer["0" + y] && objectLayer["0" + y]["0" + x]){
+			if(objectLayer[y] && objectLayer[y][x]){
 				return false;
 			}
 
@@ -857,8 +900,9 @@
 
 		var object 	=	(function(){
 			function at(x, y){
-				if(objectLayer["0" + y] && objectLayer["0" + y]["0" + x]){
-					return objectLayer["0" + y]["0" + x];
+				console.log(objectLayer);
+				if(objectLayer[y] && objectLayer[y][x]){
+					return objectLayer[y][x];
 				}else{
 					return {"click": function(){}};
 				}
@@ -906,6 +950,7 @@
 			var coords 	=	canvas.relMouseCoords(event);
 			var x 		=	Math.floor(model.player.x()) + Math.floor(coords.x/24) - 11;
 			var y 		=	Math.floor(model.player.y()) + Math.floor(coords.y/24) - 7;
+			console.log(x, y);
 			model.player.move(x, y, model.object.at(x, y).click);
 		})
 
