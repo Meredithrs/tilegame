@@ -6,7 +6,6 @@ module.exports	=	(function(){
 			_x 		=	normalize(x);
 			_y 		=	normalize(y);
 			map 	=	require("./../maps/"+ _x + "," + _y + ".js");
-
 		}catch(exception){
 			map 	=	undefined;
 		}
@@ -43,7 +42,7 @@ module.exports	=	(function(){
 	}
 
 	function getObjects(){
-		if(!map.tilesets || !map.tilesets[1]){
+		if(!map || !map.tilesets || !map.tilesets[1]){
 			return [];
 		}
 		var gidOffset 	=	map.tilesets[1].firstgid;
