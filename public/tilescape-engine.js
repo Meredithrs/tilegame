@@ -216,7 +216,6 @@ var TileScape 	=	(function TileEngine(canvas, objectsheet, mainInterface, chatIn
 		};
 	})();
 
-
 	/*
 		player:
 			getX(): Returns the x position of the player

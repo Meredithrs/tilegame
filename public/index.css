@@ -267,3 +267,14 @@ img.sprite{
 	height: 100%;
 	width: 100%;
 }
+
+.documentation>a, .documentation>a:visited{
+	color: yellow;
+	text-decoration: none;
+	font-family:'runescape_chat_07regular';
+}
+
+.documentation>a:hover{
+	color: white;
+	text-decoration: underline;
+}
