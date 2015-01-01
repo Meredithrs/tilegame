@@ -251,7 +251,7 @@ var TileScape 	=	(function TileEngine(canvas, objectsheet, mainInterface, chatIn
 			_x 	=	x;
 			_y 	=	y;
 			map.load(_x, _y);
-				//_move(_x, _y);
+			_load(_x, _y, map);
 		}
 
 		function _isWithin(x, y, distance){
@@ -261,14 +261,7 @@ var TileScape 	=	(function TileEngine(canvas, objectsheet, mainInterface, chatIn
 			return ((_getX() - x) * (_getX() - x) + (_getY() - y) * (_getY() - y)) <= (distance * distance);
 		}
 
-		function _move(x, y, map, callback){
-			/*
-				Moves the player to the specified coordinates and then invokes a callback
-			*/
-
-			clearInterval(xInterval.id); // ID of the interval that moves the player along the x-axis
-			clearInterval(yInterval.id); // This cancels the player's current movement
-
+		function _load(x, y, map){
 			// Load any scenes that are within view of the player
 			var mapTable 	=	[Math.floor((x + 11)/64), Math.floor((x - 11)/64), Math.floor(_getX()/64),
 								 Math.floor((y + 7)/64), Math.floor((y - 7)/64), Math.floor(_getY()/64)];
@@ -304,6 +297,17 @@ var TileScape 	=	(function TileEngine(canvas, objectsheet, mainInterface, chatIn
 			if(mapTable[1] !== mapTable[2] && mapTable[4] !== mapTable[5]){
 				map.load(x - 11, y - 7);
 			}
+		}
+
+		function _move(x, y, map, callback){
+			/*
+				Moves the player to the specified coordinates and then invokes a callback
+			*/
+
+			clearInterval(xInterval.id); // ID of the interval that moves the player along the x-axis
+			clearInterval(yInterval.id); // This cancels the player's current movement
+
+			_load(x, y, map);
 
 			// Compute the distance that the player will be moving
 			var delta 		=	{
