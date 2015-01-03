@@ -405,7 +405,7 @@ var TileScape 	=	(function TileEngine(canvas, objectsheet, mainInterface, chatIn
 			/*
 				Draws an object tile at the specified coordinates
 			*/
-			_context.drawImage(_objectsheet, object.position * 24, 0, 24, 48, x * _width, (y - 1) * _width, 24, 48);
+			_context.drawImage(_objectsheet, object.getPosition() * 24, 0, 24, 48, x * _width, (y - 1) * _width, 24, 48);
 		}
 
 		function _drawTerrain(x, y, map){
@@ -575,9 +575,51 @@ var TileScape 	=	(function TileEngine(canvas, objectsheet, mainInterface, chatIn
 			};
 		})();
 
+		var _inventory	=	(function(){
+			var _contents 	=	[];
+			var _interface 	=	mainInterface.querySelector("#inventory");
+			var _items 		=	{};
+
+			function _setItems(items){
+				_items 	=	items;
+			}
+
+			function _getItems(){
+				return _items;
+			}
+
+			function _addItem(item){
+				if(_contents.length < 28){
+					_contents.push(item);
+					var itemElement 	=	document.createElement("div");
+					itemElement.setAttribute("title", item.getName());
+					itemElement.style.backgroundImage	=	"url('images/items/"+item.getImage()+"')";
+
+					_interface.appendChild(itemElement);
+				}else{
+					throw "Your inventory is full.";
+				}
+			}
+
+			function _getItemByPosition(position){
+				return _contents[position];
+			}
+
+			function _removeItemByPosition(position){
+				delete _contents[position];
+			}
+
+			return {
+				"addItem": _addItem,
+				"setItems": _setItems,
+				"getItems": _getItems
+			};
+		})();
+
 		return {
 			"chat": _chat,
-			"spellbook": _spellbook
+			"spellbook": _spellbook,
+			"inventory": _inventory
 		};
 	})(mainInterface, chatInterface);
 
@@ -596,23 +638,27 @@ var TileScape 	=	(function TileEngine(canvas, objectsheet, mainInterface, chatIn
 		view.drawPlayer();
 		view.drawObjects(player.getX(), player.getY(), map);
 		window.requestAnimationFrame(update);
-	}
+	};
 
 	var initialize	=	function(){
 		window.requestAnimationFrame(update);
-	}
+	};
 
 	var addTerrain 	=	function(tileset){
 		for(var i = 0; i < tileset.length; i++){
 			map.tileset.addTerrain(tileset[i]);
 		}
-	}
+	};
 
 	var addObjects	=	function(tileset){
 		for(var i = 0; i < tileset.length; i++){
 			map.tileset.addObject(tileset[i]);
 		}
-	}
+	};
+
+	var addItems 	=	function(items){
+		interface.inventory.setItems(items);
+	};
 
 	canvas.addEventListener("click", function(event){
 		var coords 	=	canvas.relMouseCoords(event);
@@ -627,7 +673,8 @@ var TileScape 	=	(function TileEngine(canvas, objectsheet, mainInterface, chatIn
 		"interface": interface,
 		"initialize": initialize,
 		"addTerrain": addTerrain,
-		"addObjects": addObjects
+		"addObjects": addObjects,
+		"addItems": addItems
 	};
 })(
 	document.querySelector("canvas#game-window"),

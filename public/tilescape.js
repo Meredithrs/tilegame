@@ -338,10 +338,14 @@ var objects 	=	(function Objects(){
 			return false;
 		}
 
+		function getPosition(){
+			return 0;
+		}
+
 		return {
 			"click": click,
 			"isWalkable": isWalkable,
-			"position": 0
+			"getPosition": getPosition
 		}
 	}
 
@@ -354,74 +358,174 @@ var objects 	=	(function Objects(){
 			return false;
 		}
 
+		function getPosition(){
+			return 1;
+		}
+
 		return {
 			"click": click,
 			"isWalkable": isWalkable,
-			"position": 1
+			"getPosition": getPosition
 		}
 	}
 
 	function RoundTree(){
+		var cutDown 	=	false;
 		function click(){
-			TileScape.interface.chat.send("This is a round tree");
+			if(!cutDown){
+				var logs 	=	TileScape.interface.inventory.getItems().logs();
+				TileScape.interface.chat.send("You swing your axe at the tree.");
+				setTimeout(function(){
+					try{
+						TileScape.interface.inventory.addItem(logs);
+						cutDown 	=	true;
+						TileScape.interface.chat.send("You get some logs.");
+
+						setTimeout(function(){
+							cutDown	=	false;
+						}, 600 * 50);
+					}catch(exception){
+						TileScape.interface.chat.send(exception);
+					}
+				}, 600 * 4);				
+			}
 		}
 
 		function isWalkable(){
 			return false;
 		}
 
+		function getPosition(){
+			return cutDown ? 6 : 2;
+		}
+
 		return {
 			"click": click,
 			"isWalkable": isWalkable,
-			"position": 2
+			"getPosition": getPosition
 		}
 	}
 
 	function PointyTree(){
+		var cutDown 	=	false;
 		function click(){
-			TileScape.interface.chat.send("This is a pointy tree");
+			if(!cutDown){
+				var logs 	=	TileScape.interface.inventory.getItems().logs();
+				TileScape.interface.chat.send("You swing your axe at the tree.");
+				setTimeout(function(){
+					try{
+						TileScape.interface.inventory.addItem(logs);
+						cutDown 	=	true;
+						TileScape.interface.chat.send("You get some logs.");
+
+						setTimeout(function(){
+							cutDown	=	false;
+						}, 600 * 50);
+					}catch(exception){
+						TileScape.interface.chat.send(exception);
+					}
+				}, 600 * 4);				
+			}
 		}
 
 		function isWalkable(){
 			return false;
 		}
 
+		function getPosition(){
+			return cutDown ? 6 : 3;
+		}
+
 		return {
 			"click": click,
 			"isWalkable": isWalkable,
-			"position": 3
+			"getPosition": getPosition
 		}
 	}
 
 	function Oak(){
+		var cutDown 	=	false;
 		function click(){
-			TileScape.interface.chat.send("This is an oak tree");
+			if(!cutDown){
+				var logs 	=	TileScape.interface.inventory.getItems().oaklogs();
+				TileScape.interface.chat.send("You swing your axe at the tree.");
+				setTimeout(function(){
+					try{
+						var success 	=	Math.random() > .4;
+						if(success){
+							TileScape.interface.inventory.addItem(logs);
+							TileScape.interface.chat.send("You get some oak logs.");
+
+							var cut 	=	Math.random() > .7;
+							if(cut){
+								TileScape.interface.chat.send("The tree falls down.");
+								cutDown 	=	true;
+								setTimeout(function(){
+									cutDown	=	false;
+								}, 600 * 22);
+							}else{
+								click();
+							}							
+						}else{
+							TileScape.interface.chat.send("You don't get any oak logs.");
+							click();
+						}
+					}catch(exception){
+						TileScape.interface.chat.send(exception);
+					}
+				}, 600 * 4);				
+			}
 		}
 
 		function isWalkable(){
 			return false;
 		}
 
+		function getPosition(){
+			return cutDown ? 6 : 4;
+		}
+
 		return {
 			"click": click,
 			"isWalkable": isWalkable,
-			"position": 4
+			"getPosition": getPosition
 		}
 	}
 
 	function DeadTree(){
+		var cutDown 	=	false;
 		function click(){
-			TileScape.interface.chat.send("This is a dead tree");
+			if(!cutDown){
+				var logs 	=	TileScape.interface.inventory.getItems().logs();
+				TileScape.interface.chat.send("You swing your axe at the tree.");
+				setTimeout(function(){
+					try{
+						TileScape.interface.inventory.addItem(logs);
+						cutDown 	=	true;
+						TileScape.interface.chat.send("You get some logs.");
+
+						setTimeout(function(){
+							cutDown	=	false;
+						}, 600 * 50);
+					}catch(exception){
+						TileScape.interface.chat.send(exception);
+					}
+				}, 600 * 4);				
+			}
 		}
 
 		function isWalkable(){
 			return false;
 		}
 
+		function getPosition(){
+			return cutDown ? 6 : 5;
+		}
+
 		return {
 			"click": click,
 			"isWalkable": isWalkable,
-			"position": 5
+			"getPosition": getPosition
 		}
 	}
 
@@ -434,26 +538,64 @@ var objects 	=	(function Objects(){
 			return false;
 		}
 
+		function getPosition(){
+			return 6;
+		}
+
 		return {
 			"click": click,
 			"isWalkable": isWalkable,
-			"position": 6
+			"getPosition": getPosition
 		}
 	}
 
 	function Willow(){
+		var cutDown 	=	false;
 		function click(){
-			TileScape.interface.chat.send("This is a willow");
+			if(!cutDown){
+				var logs 	=	TileScape.interface.inventory.getItems().willowlogs();
+				TileScape.interface.chat.send("You swing your axe at the tree.");
+				setTimeout(function(){
+					try{
+						var success 	=	Math.random() > .3;
+						console.log(success);
+						if(success){
+							TileScape.interface.inventory.addItem(logs);
+							TileScape.interface.chat.send("You get some willow logs.");
+
+							var cut 	=	Math.random() > .9;
+							if(cut){
+								TileScape.interface.chat.send("The tree falls down.");
+								cutDown 	=	true;
+								setTimeout(function(){
+									cutDown	=	false;
+								}, 600 * 22);
+							}else{
+								click();
+							}							
+						}else{
+							TileScape.interface.chat.send("You don't get any willow logs.");
+							click();
+						}
+					}catch(exception){
+						TileScape.interface.chat.send(exception);
+					}
+				}, 600 * 4);				
+			}
 		}
 
 		function isWalkable(){
 			return false;
 		}
 
+		function getPosition(){
+			return cutDown ? 8 : 7;
+		}
+
 		return {
 			"click": click,
 			"isWalkable": isWalkable,
-			"position": 7
+			"getPosition": getPosition
 		}
 	}
 
@@ -466,10 +608,14 @@ var objects 	=	(function Objects(){
 			return false;
 		}
 
+		function getPosition(){
+			return 8;
+		}
+
 		return {
 			"click": click,
 			"isWalkable": isWalkable,
-			"position": 8
+			"getPosition": getPosition
 		}
 	}
 
@@ -482,10 +628,14 @@ var objects 	=	(function Objects(){
 			return false;
 		}
 
+		function getPosition(){
+			return 9;
+		}
+
 		return {
 			"click": click,
 			"isWalkable": isWalkable,
-			"position": 9
+			"getPosition": getPosition
 		}
 	}
 
@@ -498,10 +648,14 @@ var objects 	=	(function Objects(){
 			return false;
 		}
 
+		function getPosition(){
+			return 10;
+		}
+
 		return {
 			"click": click,
 			"isWalkable": isWalkable,
-			"position": 10
+			"getPosition": getPosition
 		}
 	}
 
@@ -514,16 +668,20 @@ var objects 	=	(function Objects(){
 			return false;
 		}
 
+		function getPosition(){
+			return 11;
+		}
+
 		return {
 			"click": click,
 			"isWalkable": isWalkable,
-			"position": 11
+			"getPosition": getPosition
 		}
 	}
 	return [FreshwaterFish, SaltwaterFish, RoundTree, PointyTree, Oak, DeadTree, Stump, Willow, WillowStump, Cactus, Palm, Rockslide];
 })();
 
-var spellbook 	=	(function Spellbook(player){
+var spellbook 	=	(function Spellbook(){
 	function TeleportToLumbridge(){
 		function cast(){
 			TileScape.player.teleport(35, 27, TileScape.map);
@@ -585,10 +743,64 @@ var spellbook 	=	(function Spellbook(player){
 	}
 
 	return [
-		TeleportToLumbridge(player),
-		TeleportToAlKharid(player),
-		TeleportToDraynorVillage(player)
+		TeleportToLumbridge(),
+		TeleportToAlKharid(),
+		TeleportToDraynorVillage()
 	];
+})();
+
+var items		=	(function Items(){
+	function Logs(){
+		function _getName(){
+			return "Logs";
+		}
+
+		function _getImage(){
+			return "logs.png";
+		}
+
+		return {
+			"getName": _getName,
+			"getImage": _getImage
+		}
+	}
+
+	function OakLogs(){
+		function _getName(){
+			return "Oak logs";
+		}
+
+		function _getImage(){
+			return "oaklogs.png";
+		}
+
+		return {
+			"getName": _getName,
+			"getImage": _getImage
+		}
+	}
+
+	function WillowLogs(){
+		function _getName(){
+			return "Willow logs";
+		}
+
+		function _getImage(){
+			return "willowlogs.png";
+		}
+
+		return {
+			"getName": _getName,
+			"getImage": _getImage
+		}
+	}
+
+	return {
+		"logs": Logs,
+		"oaklogs": OakLogs,
+		"willowlogs": WillowLogs
+	};
+
 })();
 
 (function(){
@@ -597,7 +809,8 @@ var spellbook 	=	(function Spellbook(player){
 	TileScape.addTerrain(terrain); // Add the terrain tiles to the game
 	TileScape.addObjects(objects); // Add the object tiles to the game
 	TileScape.interface.spellbook.fill(spellbook); // Fill the spellbook with spells
+	TileScape.addItems(items);
 
 	TileScape.initialize(); // Initialize the game
-	TileScape.interface.chat.send("Welcome to TileScape.");
+	TileScape.interface.chat.send("Welcome to TileScape.");	
 })();
