@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="64" height="64" tilewidth="25" tileheight="25">
+ <tileset firstgid="1" name="tileset" tilewidth="25" tileheight="25">
+  <image source="tileset.png" width="400" height="25"/>
+ </tileset>
+ <tileset firstgid="17" name="objectset" tilewidth="25" tileheight="25">
+  <image source="objectset.png" width="350" height="50"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJzt0jEKwCAABEEbSyH/f22qQBAFJUoUp5jCRtzDFEJIE12ZOPDuWLi/ZGaffv1/bNDavkL/6A12ax+5QU/7av21DR7vxtJ59/baBi1v7elevT/v+brdbu2z/tAJ3QAAAAAAAAAAAAAAAACnuAHD4tDz
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="64" height="64">
+  <object gid="28" x="1050" y="350"/>
+  <object gid="28" x="1100" y="375"/>
+  <object gid="28" x="1050" y="425"/>
+  <object gid="28" x="1075" y="375"/>
+  <object gid="28" x="1100" y="425"/>
+  <object gid="28" x="1150" y="450"/>
+  <object gid="28" x="1050" y="475"/>
+  <object gid="28" x="25" y="475"/>
+  <object gid="28" x="75" y="400"/>
+  <object gid="28" x="100" y="475"/>
+  <object gid="28" x="75" y="450"/>
+  <object gid="28" x="25" y="400"/>
+  <object gid="28" x="0" y="425"/>
+  <object gid="28" x="25" y="550"/>
+  <object gid="28" x="50" y="525"/>
+  <object gid="28" x="150" y="425"/>
+  <object gid="28" x="150" y="350"/>
+  <object gid="28" x="75" y="325"/>
+  <object gid="28" x="475" y="175"/>
+  <object gid="28" x="525" y="200"/>
+  <object gid="28" x="475" y="225"/>
+  <object gid="28" x="450" y="200"/>
+  <object gid="28" x="525" y="450"/>
+  <object gid="28" x="600" y="400"/>
+  <object gid="28" x="550" y="400"/>
+  <object gid="28" x="575" y="450"/>
+  <object gid="26" x="450" y="750"/>
+  <object gid="26" x="550" y="700"/>
+  <object gid="26" x="725" y="800"/>
+  <object gid="26" x="575" y="1000"/>
+  <object gid="26" x="175" y="1025"/>
+  <object gid="26" x="100" y="825"/>
+  <object gid="26" x="175" y="625"/>
+  <object gid="26" x="250" y="450"/>
+  <object gid="26" x="275" y="225"/>
+  <object gid="26" x="100" y="150"/>
+  <object gid="26" x="350" y="525"/>
+  <object gid="26" x="950" y="925"/>
+  <object gid="26" x="1375" y="1200"/>
+  <object gid="26" x="1100" y="1325"/>
+  <object gid="26" x="1000" y="1125"/>
+  <object gid="26" x="1325" y="975"/>
+  <object gid="26" x="1175" y="625"/>
+  <object gid="26" x="875" y="575"/>
+  <object gid="26" x="1500" y="325"/>
+  <object gid="26" x="1450" y="800"/>
+  <object gid="26" x="375" y="1450"/>
+  <object gid="26" x="75" y="1400"/>
+  <object gid="26" x="275" y="1250"/>
+  <object gid="26" x="750" y="1450"/>
+  <object gid="26" x="600" y="1300"/>
+  <object gid="26" x="1400" y="1500"/>
+  <object gid="26" x="1275" y="1325"/>
+  <object gid="26" x="1175" y="1100"/>
+  <object gid="26" x="1450" y="1025"/>
+  <object gid="26" x="1050" y="775"/>
+  <object gid="26" x="575" y="1525"/>
+  <object gid="26" x="375" y="850"/>
+  <object gid="26" x="50" y="1125"/>
+  <object gid="27" x="1100" y="475"/>
+  <object gid="27" x="600" y="250"/>
+  <object gid="27" x="325" y="375"/>
+  <object gid="27" x="400" y="75"/>
+  <object gid="27" x="200" y="75"/>
+  <object gid="27" x="925" y="1250"/>
+  <object gid="27" x="1300" y="1475"/>
+  <object gid="27" x="400" y="1150"/>
+ </objectgroup>
+</map>
