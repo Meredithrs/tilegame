@@ -623,6 +623,10 @@ var Snapdragon 	=	(function Snapdragon(canvas, objectsheet, mainInterface, chatI
 		};
 	})(mainInterface, chatInterface);
 
+	var clearAction	=	function(){
+		return true;
+	}
+
 	var update 	=	function(timestamp){
 		/*
 			Updates the view
@@ -651,8 +655,9 @@ var Snapdragon 	=	(function Snapdragon(canvas, objectsheet, mainInterface, chatI
 	};
 
 	var addObjects	=	function(tileset){
-		for(var i = 0; i < tileset.length; i++){
-			map.tileset.addObject(tileset[i]);
+		clearAction 	=	tileset.clearAction;
+		for(var i = 0; i < tileset.objects.length; i++){
+			map.tileset.addObject(tileset.objects[i]);
 		}
 	};
 
@@ -661,10 +666,12 @@ var Snapdragon 	=	(function Snapdragon(canvas, objectsheet, mainInterface, chatI
 	};
 
 	canvas.addEventListener("click", function(event){
-		var coords 	=	canvas.relMouseCoords(event);
-		var x 		=	Math.floor(player.getX()) + Math.floor(coords.x/24) - 11;
-		var y 		=	Math.floor(player.getY()) + Math.floor(coords.y/24) - 7;
-		player.move(x, y, map, map.at(x, y).object.click);
+		if(clearAction()){
+			var coords 	=	canvas.relMouseCoords(event);
+			var x 		=	Math.floor(player.getX()) + Math.floor(coords.x/24) - 11;
+			var y 		=	Math.floor(player.getY()) + Math.floor(coords.y/24) - 7;
+			player.move(x, y, map, map.at(x, y).object.click);
+		}
 	});
 
 	return {

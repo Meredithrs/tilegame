@@ -329,6 +329,7 @@ var terrain 	=	(function Terrain(){
 })();
 
 var objects 	=	(function Objects(){
+	var action;
 	function FreshwaterFish(){
 		function click(){
 			Snapdragon.interface.chat.send("This is a freshwater fishing spot");
@@ -375,7 +376,8 @@ var objects 	=	(function Objects(){
 			if(!cutDown){
 				var logs 	=	Snapdragon.interface.inventory.getItems().logs();
 				Snapdragon.interface.chat.send("You swing your axe at the tree.");
-				setTimeout(function(){
+				clearInterval(action);
+				action	=	setTimeout(function(){
 					try{
 						Snapdragon.interface.inventory.addItem(logs);
 						cutDown 	=	true;
@@ -412,7 +414,8 @@ var objects 	=	(function Objects(){
 			if(!cutDown){
 				var logs 	=	Snapdragon.interface.inventory.getItems().logs();
 				Snapdragon.interface.chat.send("You swing your axe at the tree.");
-				setTimeout(function(){
+				clearInterval(action);
+				action	=	setTimeout(function(){
 					try{
 						Snapdragon.interface.inventory.addItem(logs);
 						cutDown 	=	true;
@@ -449,7 +452,8 @@ var objects 	=	(function Objects(){
 			if(!cutDown){
 				var logs 	=	Snapdragon.interface.inventory.getItems().oaklogs();
 				Snapdragon.interface.chat.send("You swing your axe at the tree.");
-				setTimeout(function(){
+
+				action	=	setTimeout(function(){
 					try{
 						var success 	=	Math.random() > .4;
 						if(success){
@@ -460,6 +464,7 @@ var objects 	=	(function Objects(){
 							if(cut){
 								Snapdragon.interface.chat.send("The tree falls down.");
 								cutDown 	=	true;
+								
 								setTimeout(function(){
 									cutDown	=	false;
 								}, 600 * 22);
@@ -498,7 +503,8 @@ var objects 	=	(function Objects(){
 			if(!cutDown){
 				var logs 	=	Snapdragon.interface.inventory.getItems().logs();
 				Snapdragon.interface.chat.send("You swing your axe at the tree.");
-				setTimeout(function(){
+
+				action	=	setTimeout(function(){
 					try{
 						Snapdragon.interface.inventory.addItem(logs);
 						cutDown 	=	true;
@@ -555,7 +561,8 @@ var objects 	=	(function Objects(){
 			if(!cutDown){
 				var logs 	=	Snapdragon.interface.inventory.getItems().willowlogs();
 				Snapdragon.interface.chat.send("You swing your axe at the tree.");
-				setTimeout(function(){
+				
+				action	=	setTimeout(function(){
 					try{
 						var success 	=	Math.random() > .3;
 						console.log(success);
@@ -678,7 +685,15 @@ var objects 	=	(function Objects(){
 			"getPosition": getPosition
 		}
 	}
-	return [FreshwaterFish, SaltwaterFish, RoundTree, PointyTree, Oak, DeadTree, Stump, Willow, WillowStump, Cactus, Palm, Rockslide];
+
+	function clearAction(){
+		clearInterval(action);
+		return true;
+	}
+	return {
+		"clearAction": clearAction,
+		"objects": [FreshwaterFish, SaltwaterFish, RoundTree, PointyTree, Oak, DeadTree, Stump, Willow, WillowStump, Cactus, Palm, Rockslide]
+	};
 })();
 
 var spellbook 	=	(function Spellbook(){
