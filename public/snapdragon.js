@@ -59,7 +59,7 @@
 /*
 	The game engine
 */
-var TileScape 	=	(function TileEngine(canvas, objectsheet, mainInterface, chatInterface){
+var Snapdragon 	=	(function Snapdragon(canvas, objectsheet, mainInterface, chatInterface){
 	/*
 		map:
 			at(x, y): Returns the items at a particular coordinate in the map

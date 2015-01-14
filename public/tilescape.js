@@ -1,5 +1,5 @@
 /*
-	This file uses the TileScape game engine to create a two-dimensional reproduction of RuneScape
+	This file uses the Snapdragon game engine to create a two-dimensional reproduction of RuneScape
 */
 
 var terrain 	=	(function Terrain(){
@@ -331,7 +331,7 @@ var terrain 	=	(function Terrain(){
 var objects 	=	(function Objects(){
 	function FreshwaterFish(){
 		function click(){
-			TileScape.interface.chat.send("This is a freshwater fishing spot");
+			Snapdragon.interface.chat.send("This is a freshwater fishing spot");
 		}
 
 		function isWalkable(){
@@ -351,7 +351,7 @@ var objects 	=	(function Objects(){
 
 	function SaltwaterFish(){
 		function click(){
-			TileScape.interface.chat.send("This is a saltwater fishing spot");
+			Snapdragon.interface.chat.send("This is a saltwater fishing spot");
 		}
 
 		function isWalkable(){
@@ -373,19 +373,19 @@ var objects 	=	(function Objects(){
 		var cutDown 	=	false;
 		function click(){
 			if(!cutDown){
-				var logs 	=	TileScape.interface.inventory.getItems().logs();
-				TileScape.interface.chat.send("You swing your axe at the tree.");
+				var logs 	=	Snapdragon.interface.inventory.getItems().logs();
+				Snapdragon.interface.chat.send("You swing your axe at the tree.");
 				setTimeout(function(){
 					try{
-						TileScape.interface.inventory.addItem(logs);
+						Snapdragon.interface.inventory.addItem(logs);
 						cutDown 	=	true;
-						TileScape.interface.chat.send("You get some logs.");
+						Snapdragon.interface.chat.send("You get some logs.");
 
 						setTimeout(function(){
 							cutDown	=	false;
 						}, 600 * 50);
 					}catch(exception){
-						TileScape.interface.chat.send(exception);
+						Snapdragon.interface.chat.send(exception);
 					}
 				}, 600 * 4);				
 			}
@@ -410,19 +410,19 @@ var objects 	=	(function Objects(){
 		var cutDown 	=	false;
 		function click(){
 			if(!cutDown){
-				var logs 	=	TileScape.interface.inventory.getItems().logs();
-				TileScape.interface.chat.send("You swing your axe at the tree.");
+				var logs 	=	Snapdragon.interface.inventory.getItems().logs();
+				Snapdragon.interface.chat.send("You swing your axe at the tree.");
 				setTimeout(function(){
 					try{
-						TileScape.interface.inventory.addItem(logs);
+						Snapdragon.interface.inventory.addItem(logs);
 						cutDown 	=	true;
-						TileScape.interface.chat.send("You get some logs.");
+						Snapdragon.interface.chat.send("You get some logs.");
 
 						setTimeout(function(){
 							cutDown	=	false;
 						}, 600 * 50);
 					}catch(exception){
-						TileScape.interface.chat.send(exception);
+						Snapdragon.interface.chat.send(exception);
 					}
 				}, 600 * 4);				
 			}
@@ -447,18 +447,18 @@ var objects 	=	(function Objects(){
 		var cutDown 	=	false;
 		function click(){
 			if(!cutDown){
-				var logs 	=	TileScape.interface.inventory.getItems().oaklogs();
-				TileScape.interface.chat.send("You swing your axe at the tree.");
+				var logs 	=	Snapdragon.interface.inventory.getItems().oaklogs();
+				Snapdragon.interface.chat.send("You swing your axe at the tree.");
 				setTimeout(function(){
 					try{
 						var success 	=	Math.random() > .4;
 						if(success){
-							TileScape.interface.inventory.addItem(logs);
-							TileScape.interface.chat.send("You get some oak logs.");
+							Snapdragon.interface.inventory.addItem(logs);
+							Snapdragon.interface.chat.send("You get some oak logs.");
 
 							var cut 	=	Math.random() > .7;
 							if(cut){
-								TileScape.interface.chat.send("The tree falls down.");
+								Snapdragon.interface.chat.send("The tree falls down.");
 								cutDown 	=	true;
 								setTimeout(function(){
 									cutDown	=	false;
@@ -467,11 +467,11 @@ var objects 	=	(function Objects(){
 								click();
 							}							
 						}else{
-							TileScape.interface.chat.send("You don't get any oak logs.");
+							Snapdragon.interface.chat.send("You don't get any oak logs.");
 							click();
 						}
 					}catch(exception){
-						TileScape.interface.chat.send(exception);
+						Snapdragon.interface.chat.send(exception);
 					}
 				}, 600 * 4);				
 			}
@@ -496,19 +496,19 @@ var objects 	=	(function Objects(){
 		var cutDown 	=	false;
 		function click(){
 			if(!cutDown){
-				var logs 	=	TileScape.interface.inventory.getItems().logs();
-				TileScape.interface.chat.send("You swing your axe at the tree.");
+				var logs 	=	Snapdragon.interface.inventory.getItems().logs();
+				Snapdragon.interface.chat.send("You swing your axe at the tree.");
 				setTimeout(function(){
 					try{
-						TileScape.interface.inventory.addItem(logs);
+						Snapdragon.interface.inventory.addItem(logs);
 						cutDown 	=	true;
-						TileScape.interface.chat.send("You get some logs.");
+						Snapdragon.interface.chat.send("You get some logs.");
 
 						setTimeout(function(){
 							cutDown	=	false;
 						}, 600 * 50);
 					}catch(exception){
-						TileScape.interface.chat.send(exception);
+						Snapdragon.interface.chat.send(exception);
 					}
 				}, 600 * 4);				
 			}
@@ -531,7 +531,7 @@ var objects 	=	(function Objects(){
 
 	function Stump(){
 		function click(){
-			TileScape.interface.chat.send("This is a stump");
+			Snapdragon.interface.chat.send("This is a stump");
 		}
 
 		function isWalkable(){
@@ -553,19 +553,19 @@ var objects 	=	(function Objects(){
 		var cutDown 	=	false;
 		function click(){
 			if(!cutDown){
-				var logs 	=	TileScape.interface.inventory.getItems().willowlogs();
-				TileScape.interface.chat.send("You swing your axe at the tree.");
+				var logs 	=	Snapdragon.interface.inventory.getItems().willowlogs();
+				Snapdragon.interface.chat.send("You swing your axe at the tree.");
 				setTimeout(function(){
 					try{
 						var success 	=	Math.random() > .3;
 						console.log(success);
 						if(success){
-							TileScape.interface.inventory.addItem(logs);
-							TileScape.interface.chat.send("You get some willow logs.");
+							Snapdragon.interface.inventory.addItem(logs);
+							Snapdragon.interface.chat.send("You get some willow logs.");
 
 							var cut 	=	Math.random() > .9;
 							if(cut){
-								TileScape.interface.chat.send("The tree falls down.");
+								Snapdragon.interface.chat.send("The tree falls down.");
 								cutDown 	=	true;
 								setTimeout(function(){
 									cutDown	=	false;
@@ -574,11 +574,11 @@ var objects 	=	(function Objects(){
 								click();
 							}							
 						}else{
-							TileScape.interface.chat.send("You don't get any willow logs.");
+							Snapdragon.interface.chat.send("You don't get any willow logs.");
 							click();
 						}
 					}catch(exception){
-						TileScape.interface.chat.send(exception);
+						Snapdragon.interface.chat.send(exception);
 					}
 				}, 600 * 4);				
 			}
@@ -601,7 +601,7 @@ var objects 	=	(function Objects(){
 
 	function WillowStump(){
 		function click(){
-			TileScape.interface.chat.send("This is a willow stump");
+			Snapdragon.interface.chat.send("This is a willow stump");
 		}
 
 		function isWalkable(){
@@ -621,7 +621,7 @@ var objects 	=	(function Objects(){
 
 	function Cactus(){
 		function click(){
-			TileScape.interface.chat.send("This is a cactus");
+			Snapdragon.interface.chat.send("This is a cactus");
 		}
 
 		function isWalkable(){
@@ -641,7 +641,7 @@ var objects 	=	(function Objects(){
 
 	function Palm(){
 		function click(){
-			TileScape.interface.chat.send("This is a palm");
+			Snapdragon.interface.chat.send("This is a palm");
 		}
 
 		function isWalkable(){
@@ -661,7 +661,7 @@ var objects 	=	(function Objects(){
 
 	function Rockslide(){
 		function click(){
-			TileScape.interface.chat.send("This is a rockslide");
+			Snapdragon.interface.chat.send("This is a rockslide");
 		}
 
 		function isWalkable(){
@@ -684,7 +684,7 @@ var objects 	=	(function Objects(){
 var spellbook 	=	(function Spellbook(){
 	function TeleportToLumbridge(){
 		function cast(){
-			TileScape.player.teleport(35, 27, TileScape.map);
+			Snapdragon.player.teleport(35, 27, Snapdragon.map);
 		}
 
 		function getName(){
@@ -704,7 +704,7 @@ var spellbook 	=	(function Spellbook(){
 
 	function TeleportToAlKharid(){
 		function cast(){
-			TileScape.player.teleport(97, 87, TileScape.map);
+			Snapdragon.player.teleport(97, 87, Snapdragon.map);
 		}
 
 		function getName(){
@@ -724,7 +724,7 @@ var spellbook 	=	(function Spellbook(){
 
 	function TeleportToDraynorVillage(){
 		function cast(){
-			TileScape.player.teleport(-88, -3, TileScape.map);
+			Snapdragon.player.teleport(-88, -3, Snapdragon.map);
 		}
 
 		function getName(){
@@ -804,13 +804,13 @@ var items		=	(function Items(){
 })();
 
 (function(){
-	TileScape.player.teleport(35, 27, TileScape.map); // Start the player off in Lumbridge
+	Snapdragon.player.teleport(35, 27, Snapdragon.map); // Start the player off in Lumbridge
 
-	TileScape.addTerrain(terrain); // Add the terrain tiles to the game
-	TileScape.addObjects(objects); // Add the object tiles to the game
-	TileScape.interface.spellbook.fill(spellbook); // Fill the spellbook with spells
-	TileScape.addItems(items);
+	Snapdragon.addTerrain(terrain); // Add the terrain tiles to the game
+	Snapdragon.addObjects(objects); // Add the object tiles to the game
+	Snapdragon.interface.spellbook.fill(spellbook); // Fill the spellbook with spells
+	Snapdragon.addItems(items);
 
-	TileScape.initialize(); // Initialize the game
-	TileScape.interface.chat.send("Welcome to TileScape.");	
+	Snapdragon.initialize(); // Initialize the game
+	Snapdragon.interface.chat.send("Welcome to TileScape.");	
 })();

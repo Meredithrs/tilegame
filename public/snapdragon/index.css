@@ -23,15 +23,18 @@ h1{
   font-size: 2em;
   margin: auto;
   text-align: center;
+  color: #445f13;
 }
 
 h2{
   font-family: 'Dosis', sans-serif;
   font-size: 1.5em;
+  color: #445f13;
 }
 
 h3{
   font-family: 'Courier', sans-serif;
+  color: #445f13;
 }
 
 p{
@@ -49,7 +52,7 @@ p{
   margin-left: 1.5em;
   background-color: #F5F5F5;
   padding: .5em;
-  border: 1px solid #E8E8E8;
+  border: 1px solid #b7d87d;
   margin-bottom: 1em;
   
 }
@@ -57,4 +60,22 @@ p{
 code{
   width: 100%;
   margin-left: 2em;
+}
+
+.header{
+  height: 300px;
+  width: 100%;
+  background-color: #b7d87d;
+  justify-content: center;
+}
+
+.snapdragon{
+  background: url("/images/logos/herblore.svg");
+}
+
+.header>.snapdragon{
+  height: 250px;
+  width: 250px;
+  background-size: 250px 250px;
+  margin: auto;
 }

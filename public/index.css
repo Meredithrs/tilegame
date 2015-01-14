@@ -266,7 +266,7 @@ img.sprite{
 	display: none;
 }
 
-.github, .html5{
+.github, .html5, .herblore{
 	margin: 8px auto;
 	height: 64px;
 	width: 64px;
@@ -281,10 +281,15 @@ img.sprite{
 	background-image: url("http://www.w3.org/html/logo/badge/html5-badge-h-solo.png");
 }
 
-.github>a, .html5>a{
+.github>a, .html5>a, .herblore>a{
 	display: block;
 	height: 100%;
 	width: 100%;
+}
+
+.herblore{
+	background: url("/images/logos/herblore.svg");
+	background-size: 64px 64px;
 }
 
 .documentation>a, .documentation>a:visited{

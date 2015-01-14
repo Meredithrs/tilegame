@@ -3,26 +3,29 @@
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
 	<link rel="stylesheet" type="text/css" href="index.css"/>
-	<title>Tilescape Documentation</title>
+	<title>Snapdragon Documentation</title>
 </head>
 <body>
-<div class="content">
-	<h2>Introduction</h2>
-	<p>The TileScape engine consists of a number of modules. These modules are members of a global object named TileScape.</p>
+<div class="header">
+	<div class="snapdragon"></div>
 </div>
 <div class="content">
-	<h2>TileScape</h2>
+	<h2>Introduction</h2>
+	<p>The Snapdragon engine consists of a number of modules. These modules are members of a global object named Snapdragon.</p>
+</div>
+<div class="content">
+	<h2>Snapdragon</h2>
 	<p>The global module contains functions for manipulating the game engine.</p>
 	<div class="function">
-		<h3>TileScape.initialize()</h3>
+		<h3>Snapdragon.initialize()</h3>
 		<p>Initializes the game engine and starts the game.</p>
 	</div>
 	<div class="function">
-		<h3>TileScape.addTerrain(tileset)</h3>
+		<h3>Snapdragon.addTerrain(tileset)</h3>
 		<p>Injects custom terrain tiles into the game engine.</p>
 	</div>
 	<div class="function">
-		<h3>TileScape.addObjects(tileset)</h3>
+		<h3>Snapdragon.addObjects(tileset)</h3>
 		<p>Injects custom object tiles into the game engine.</p>
 	</div>
 </div>
@@ -30,27 +33,27 @@
 	<h2>Map</h2>
 	<p>The Map module contains functions for manipulating the map.</p>
 	<div class="function">
-		<h3>TileScape.map.at(x, y)</h3>
+		<h3>Snapdragon.map.at(x, y)</h3>
 		<p>Returns the items at a particular coordinate in the map.</p>
 	</div>
 	<div class="function">
-		<h3>TileScape.map.tileset.addTerrain(terrain_tile)</h3>
+		<h3>Snapdragon.map.tileset.addTerrain(terrain_tile)</h3>
 		<p>Adds a terrain tile to the terrain tileset.</p>
 	</div>
 	<div class="function">
-		<h3>TileScape.map.tileset.addObject(object_tile)</h3>
+		<h3>Snapdragon.map.tileset.addObject(object_tile)</h3>
 		<p>Adds an object tile to the object tileset.</p>
 	</div>
 	<div class="function">
-		<h3>TileScape.map.tileset.getTerrain()</h3>
+		<h3>Snapdragon.map.tileset.getTerrain()</h3>
 		<p>Returns an array containing the terrain tileset.</p>
 	</div>
 	<div class="function">
-		<h3>TileScape.map.tileset.getObjects()</h3>
+		<h3>Snapdragon.map.tileset.getObjects()</h3>
 		<p>Returns an array containing the object tileset.</p>
 	</div>
 	<div class="function">
-		<h3>TileScape.map.load(x, y)</h3>
+		<h3>Snapdragon.map.load(x, y)</h3>
 		<p>Loads the scene at the specified coordinates into the map.</p>
 	</div>
 </div>
@@ -58,23 +61,23 @@
 	<h2>Player</h2>
 	<p>The Player module contains functions for manipulating the player.</p>
 	<div class="function">
-		<h3>TileScape.player.getX()</h3>
+		<h3>Snapdragon.player.getX()</h3>
 		<p>Returns the x position of the player.</p>
 	</div>
 	<div class="function">
-		<h3>TileScape.player.getY()</h3>
+		<h3>Snapdragon.player.getY()</h3>
 		<p>Returns the y position of the player.</p>
 	</div>
 	<div class="function">
-		<h3>TileScape.player.teleport(x, y, map)</h3>
+		<h3>Snapdragon.player.teleport(x, y, map)</h3>
 		<p>Instantly moves the player to the specified location if it is a legal move.</p>
 	</div>
 	<div class="function">
-		<h3>TileScape.player.isWithin(x, y, distance)</h3>
+		<h3>Snapdragon.player.isWithin(x, y, distance)</h3>
 		<p>Checks if the player is within a certain distance of the specified coordinates.</p>
 	</div>
 	<div class="function">
-		<h3>TileScape.player.move(x, y, map, callback)</h3>
+		<h3>Snapdragon.player.move(x, y, map, callback)</h3>
 		<p>Moves the player to the specified coordinates and then invokes a callback.</p>
 	</div>
 </div>
@@ -82,19 +85,19 @@
 	<h2>Interface</h2>
 	<p>The Interface module contains functions for manipulating the interface.</p>
 	<div class="function">
-		<h3>TileScape.interface.chat.send(message, color)</h3>
+		<h3>Snapdragon.interface.chat.send(message, color)</h3>
 		<p>Sends a message through the chat box.</p>
 	</div>
 	<div class="function">
-		<h3>TileScape.interface.chat.getMessages()</h3>
+		<h3>Snapdragon.interface.chat.getMessages()</h3>
 		<p>Gets all messages.</p>
 	</div>
 	<div class="function">
-		<h3>TileScape.interface.spellbook.addSpell(spell)</h3>
+		<h3>Snapdragon.interface.spellbook.addSpell(spell)</h3>
 		<p>Adds a spell to the spellbook.</p>
 	</div>
 	<div class="function">
-		<h3>TileScape.interface.spellbook.fill(spells)</h3>
+		<h3>Snapdragon.interface.spellbook.fill(spells)</h3>
 		<p>Adds an array of spells to the spellbook.</p>
 	</div>
 </div>
