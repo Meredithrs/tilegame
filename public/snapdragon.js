@@ -59,7 +59,26 @@
 /*
 	The game engine
 */
-var Snapdragon 	=	(function Snapdragon(canvas, objectsheet, mainInterface, chatInterface){
+var Snapdragon 	=	(function Snapdragon(options){
+
+	var config 	=	(function(){
+		function _set(name, value, required){
+			if(required && (!value || !name)){
+				throw "This value is required";
+			}
+			this[name]	=	value;
+		}
+
+		return {
+			"set": _set
+		};
+	})();
+
+	config.set("gameWindow", options.gameWindow, true);
+	config.set("objectSet", options.objectSet, true);
+	config.set("mainInterface", options.mainInterface, true);
+	config.set("chatWindow", options.chatWindow, true);
+
 	/*
 		map:
 			at(x, y): Returns the items at a particular coordinate in the map
@@ -250,6 +269,7 @@ var Snapdragon 	=	(function Snapdragon(canvas, objectsheet, mainInterface, chatI
 			_x 	=	x;
 			_y 	=	y;
 			map.load(_x, _y);
+			_stop();
 			_load(_x, _y, map);
 		}
 
@@ -296,6 +316,11 @@ var Snapdragon 	=	(function Snapdragon(canvas, objectsheet, mainInterface, chatI
 			if(mapTable[1] !== mapTable[2] && mapTable[4] !== mapTable[5]){
 				map.load(x - 11, y - 7);
 			}
+		}
+
+		function _stop(){
+			clearInterval(xInterval.id);
+			clearInterval(yInterval.id);
 		}
 
 		function _move(x, y, map, callback){
@@ -383,7 +408,7 @@ var Snapdragon 	=	(function Snapdragon(canvas, objectsheet, mainInterface, chatI
 			drawPlayer(): Draws the player in the middle of the viewport
 	*/
 	var view 	=	(function(canvas, objectsheet){
-		var _canvas		= canvas, _objectsheet = objectsheet, _mainInterface = mainInterface, _chatInterface = chatInterface;
+		var _canvas		= canvas, _objectsheet = objectsheet;
 		var _context	=	_canvas.getContext("2d");
 		var _width 		=	24;
 
@@ -460,7 +485,7 @@ var Snapdragon 	=	(function Snapdragon(canvas, objectsheet, mainInterface, chatI
 			"drawObjects": _drawObjects,
 			"drawPlayer": _drawPlayer
 		}
-	})(canvas, objectsheet, mainInterface, chatInterface);
+	})(config.gameWindow, config.objectSet);
 
 	/*
 		interface:
@@ -470,7 +495,6 @@ var Snapdragon 	=	(function Snapdragon(canvas, objectsheet, mainInterface, chatI
 			spellbook:
 				addSpell(spell): Adds a spell to the spellbook
 				fill(spells): Adds an array of spells to the spellbook
-
 	*/
 	var interface 	=	(function(mainInterface, chatInterface){
 		/*
@@ -621,22 +645,23 @@ var Snapdragon 	=	(function Snapdragon(canvas, objectsheet, mainInterface, chatI
 			"spellbook": _spellbook,
 			"inventory": _inventory
 		};
-	})(mainInterface, chatInterface);
+	})(config.mainInterface, config.chatWindow);
 
-	var clearAction	=	function(){
+	var objectClick	=	function(){
 		return true;
 	}
 
+	var previousTimestamp;
 	var update 	=	function(timestamp){
 		/*
 			Updates the view
 		*/
 
 		// Calculate the FPS
-		//if(!!previousTimestamp){
-		//	fps 	=	Math.floor(1/(timestamp-previousTimestamp) * 10000)/10;
-		//}
-		//previousTimestamp = timestamp;
+		if(!!previousTimestamp){
+			fps 	=	Math.floor(1/(timestamp-previousTimestamp) * 10000)/10;
+		}
+		previousTimestamp = timestamp;
 
 		view.drawTerrain(player.getX(), player.getY(), map);
 		view.drawPlayer();
@@ -655,7 +680,7 @@ var Snapdragon 	=	(function Snapdragon(canvas, objectsheet, mainInterface, chatI
 	};
 
 	var addObjects	=	function(tileset){
-		clearAction 	=	tileset.clearAction;
+		objectClick 	=	tileset.click;
 		for(var i = 0; i < tileset.objects.length; i++){
 			map.tileset.addObject(tileset.objects[i]);
 		}
@@ -665,9 +690,9 @@ var Snapdragon 	=	(function Snapdragon(canvas, objectsheet, mainInterface, chatI
 		interface.inventory.setItems(items);
 	};
 
-	canvas.addEventListener("click", function(event){
-		if(clearAction()){
-			var coords 	=	canvas.relMouseCoords(event);
+	config.gameWindow.addEventListener("click", function(event){
+		if(objectClick()){
+			var coords 	=	config.gameWindow.relMouseCoords(event);
 			var x 		=	Math.floor(player.getX()) + Math.floor(coords.x/24) - 11;
 			var y 		=	Math.floor(player.getY()) + Math.floor(coords.y/24) - 7;
 			player.move(x, y, map, map.at(x, y).object.click);
@@ -683,9 +708,4 @@ var Snapdragon 	=	(function Snapdragon(canvas, objectsheet, mainInterface, chatI
 		"addObjects": addObjects,
 		"addItems": addItems
 	};
-})(
-	document.querySelector("canvas#game-window"),
-	document.querySelector("img.sprite"),
-	document.querySelector("div#main-interface"),
-	document.querySelector("div#chat-window")
-);
+});

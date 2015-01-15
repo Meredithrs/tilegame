@@ -686,12 +686,12 @@ var objects 	=	(function Objects(){
 		}
 	}
 
-	function clearAction(){
+	function click(){
 		clearInterval(action);
 		return true;
 	}
 	return {
-		"clearAction": clearAction,
+		"click": click,
 		"objects": [FreshwaterFish, SaltwaterFish, RoundTree, PointyTree, Oak, DeadTree, Stump, Willow, WillowStump, Cactus, Palm, Rockslide]
 	};
 })();
@@ -815,10 +815,16 @@ var items		=	(function Items(){
 		"oaklogs": OakLogs,
 		"willowlogs": WillowLogs
 	};
-
 })();
 
 (function(){
+	Snapdragon 	=	Snapdragon({
+		"gameWindow": document.querySelector("canvas#game-window"),
+		"objectSet": document.querySelector("img.sprite"),
+		"mainInterface": document.querySelector("div#main-interface"),
+		"chatWindow": document.querySelector("div#chat-window")
+	});
+
 	Snapdragon.player.teleport(35, 27, Snapdragon.map); // Start the player off in Lumbridge
 
 	Snapdragon.addTerrain(terrain); // Add the terrain tiles to the game
