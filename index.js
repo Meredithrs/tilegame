@@ -17,13 +17,13 @@ var port = process.env.PORT || 8080;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
-var router = express.Router();              // get an instance of the express Router
+var api = express.Router();              // get an instance of the express Router
 
-router.use(function(req, res, next) {
+api.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
 
-router.route('/maps/:x/:y').get(function(req, res){
+api.route('/maps/:x/:y').get(function(req, res){
 	var maps	=	require("./models/maps.js");
 	maps.setCoordinates(req.params.x, req.params.y);
 	res.json({"terrain": maps.getTerrain(), "objects": maps.getObjects()});
@@ -35,7 +35,7 @@ app.use(express.static(__dirname + '/public'));
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-app.use('/api', router);
+app.use('/api', api);
 
 // START THE SERVER
 // =============================================================================

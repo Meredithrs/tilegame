@@ -9,97 +9,97 @@
 <div class="header">
 	<div class="snapdragon"></div>
 </div>
-<div class="content">
-	<h2>Introduction</h2>
-	<p>The Snapdragon engine consists of a number of modules. These modules are members of a global object named Snapdragon.</p>
+<div class="markdown">
+## Introduction
+
+The Snapdragon engine consists of a number of modules. These modules are members of a global object named Snapdragon.
+
+##Snapdragon
+The global module contains functions for manipulating the game engine.
+
+`Snapdragon.initialize()`
+Initializes the game engine and starts the game.
+
+
+`Snapdragon.addTerrain(tileset)`
+Injects custom terrain tiles into the game engine.
+
+
+`Snapdragon.addObjects(tileset)`
+Injects custom object tiles into the game engine.
+
+
+
+##Map
+The Map module contains functions for manipulating the map.
+
+`Snapdragon.map.at(x, y)`
+Returns the items at a particular coordinate in the map.
+
+
+`Snapdragon.map.tileset.addTerrain(terrain_tile)`
+Adds a terrain tile to the terrain tileset.
+
+
+`Snapdragon.map.tileset.addObject(object_tile)`
+Adds an object tile to the object tileset.
+
+
+`Snapdragon.map.tileset.getTerrain()`
+Returns an array containing the terrain tileset.
+
+
+`Snapdragon.map.tileset.getObjects()`
+Returns an array containing the object tileset.
+
+
+`Snapdragon.map.load(x, y)`
+Loads the scene at the specified coordinates into the map.
+
+
+
+##Player
+The Player module contains functions for manipulating the player.
+
+`Snapdragon.player.getX()`
+Returns the x position of the player.
+
+
+`Snapdragon.player.getY()`
+Returns the y position of the player.
+
+
+`Snapdragon.player.teleport(x, y, map)`
+Instantly moves the player to the specified location if it is a legal move.
+
+
+`Snapdragon.player.isWithin(x, y, distance)`
+Checks if the player is within a certain distance of the specified coordinates.
+
+
+`Snapdragon.player.move(x, y, map, callback)`
+Moves the player to the specified coordinates and then invokes a callback.
+
+
+
+##Interface
+The Interface module contains functions for manipulating the interface.
+
+`Snapdragon.interface.chat.send(message, color)`
+Sends a message through the chat box.
+
+
+`Snapdragon.interface.chat.getMessages()`
+Gets all messages.
+
+
+`Snapdragon.interface.spellbook.addSpell(spell)`
+Adds a spell to the spellbook.
+
+
+`Snapdragon.interface.spellbook.fill(spells)`
+Adds an array of spells to the spellbook.
 </div>
-<div class="content">
-	<h2>Snapdragon</h2>
-	<p>The global module contains functions for manipulating the game engine.</p>
-	<div class="function">
-		<h3>Snapdragon.initialize()</h3>
-		<p>Initializes the game engine and starts the game.</p>
-	</div>
-	<div class="function">
-		<h3>Snapdragon.addTerrain(tileset)</h3>
-		<p>Injects custom terrain tiles into the game engine.</p>
-	</div>
-	<div class="function">
-		<h3>Snapdragon.addObjects(tileset)</h3>
-		<p>Injects custom object tiles into the game engine.</p>
-	</div>
-</div>
-<div class="content">
-	<h2>Map</h2>
-	<p>The Map module contains functions for manipulating the map.</p>
-	<div class="function">
-		<h3>Snapdragon.map.at(x, y)</h3>
-		<p>Returns the items at a particular coordinate in the map.</p>
-	</div>
-	<div class="function">
-		<h3>Snapdragon.map.tileset.addTerrain(terrain_tile)</h3>
-		<p>Adds a terrain tile to the terrain tileset.</p>
-	</div>
-	<div class="function">
-		<h3>Snapdragon.map.tileset.addObject(object_tile)</h3>
-		<p>Adds an object tile to the object tileset.</p>
-	</div>
-	<div class="function">
-		<h3>Snapdragon.map.tileset.getTerrain()</h3>
-		<p>Returns an array containing the terrain tileset.</p>
-	</div>
-	<div class="function">
-		<h3>Snapdragon.map.tileset.getObjects()</h3>
-		<p>Returns an array containing the object tileset.</p>
-	</div>
-	<div class="function">
-		<h3>Snapdragon.map.load(x, y)</h3>
-		<p>Loads the scene at the specified coordinates into the map.</p>
-	</div>
-</div>
-<div class="content">
-	<h2>Player</h2>
-	<p>The Player module contains functions for manipulating the player.</p>
-	<div class="function">
-		<h3>Snapdragon.player.getX()</h3>
-		<p>Returns the x position of the player.</p>
-	</div>
-	<div class="function">
-		<h3>Snapdragon.player.getY()</h3>
-		<p>Returns the y position of the player.</p>
-	</div>
-	<div class="function">
-		<h3>Snapdragon.player.teleport(x, y, map)</h3>
-		<p>Instantly moves the player to the specified location if it is a legal move.</p>
-	</div>
-	<div class="function">
-		<h3>Snapdragon.player.isWithin(x, y, distance)</h3>
-		<p>Checks if the player is within a certain distance of the specified coordinates.</p>
-	</div>
-	<div class="function">
-		<h3>Snapdragon.player.move(x, y, map, callback)</h3>
-		<p>Moves the player to the specified coordinates and then invokes a callback.</p>
-	</div>
-</div>
-<div class="content">
-	<h2>Interface</h2>
-	<p>The Interface module contains functions for manipulating the interface.</p>
-	<div class="function">
-		<h3>Snapdragon.interface.chat.send(message, color)</h3>
-		<p>Sends a message through the chat box.</p>
-	</div>
-	<div class="function">
-		<h3>Snapdragon.interface.chat.getMessages()</h3>
-		<p>Gets all messages.</p>
-	</div>
-	<div class="function">
-		<h3>Snapdragon.interface.spellbook.addSpell(spell)</h3>
-		<p>Adds a spell to the spellbook.</p>
-	</div>
-	<div class="function">
-		<h3>Snapdragon.interface.spellbook.fill(spells)</h3>
-		<p>Adds an array of spells to the spellbook.</p>
-	</div>
-</div>
+<script src="marked.js"></script>
 </body>
 </html>
