@@ -3,8 +3,8 @@
  <tileset firstgid="1" name="Lumbridge" tilewidth="25" tileheight="25">
   <image source="../tileset.png" width="400" height="25"/>
  </tileset>
- <tileset firstgid="17" name="Rocks" tilewidth="25" tileheight="25">
-  <image source="../ores.png" width="225" height="25"/>
+ <tileset firstgid="17" name="objectset" tilewidth="25" tileheight="25">
+  <image source="objectset.png" width="350" height="50"/>
  </tileset>
  <layer name="Tile Layer 1" width="64" height="64">
   <data encoding="csv">
@@ -75,19 +75,54 @@
 </data>
  </layer>
  <objectgroup name="Object Layer 1" width="64" height="64">
-  <object gid="21" x="725" y="850"/>
-  <object gid="21" x="700" y="875"/>
-  <object gid="21" x="725" y="900"/>
-  <object gid="21" x="750" y="900"/>
-  <object gid="21" x="700" y="925"/>
-  <object gid="21" x="725" y="950"/>
-  <object gid="21" x="700" y="975"/>
-  <object gid="23" x="725" y="1000"/>
-  <object gid="23" x="700" y="1000"/>
-  <object gid="23" x="650" y="950"/>
-  <object gid="23" x="625" y="975"/>
-  <object gid="23" x="650" y="1000"/>
-  <object gid="24" x="775" y="950"/>
-  <object gid="24" x="800" y="925"/>
+  <object gid="22" x="1575" y="425"/>
+  <object gid="22" x="1425" y="425"/>
+  <object gid="22" x="1425" y="300"/>
+  <object gid="22" x="1425" y="375"/>
+  <object gid="22" x="1475" y="400"/>
+  <object gid="22" x="1500" y="775"/>
+  <object gid="22" x="1400" y="700"/>
+  <object gid="22" x="1425" y="750"/>
+  <object gid="22" x="1350" y="175"/>
+  <object gid="22" x="1375" y="200"/>
+  <object gid="22" x="1400" y="200"/>
+  <object gid="22" x="1500" y="75"/>
+  <object gid="22" x="1550" y="25"/>
+  <object gid="22" x="1575" y="75"/>
+  <object gid="22" x="1500" y="75"/>
+  <object gid="22" x="1500" y="50"/>
+  <object gid="22" x="1275" y="375"/>
+  <object gid="22" x="1225" y="250"/>
+  <object gid="22" x="1250" y="175"/>
+  <object gid="22" x="1150" y="100"/>
+  <object gid="22" x="1225" y="25"/>
+  <object gid="19" x="925" y="775"/>
+  <object gid="19" x="1100" y="800"/>
+  <object gid="19" x="1050" y="875"/>
+  <object gid="19" x="875" y="825"/>
+  <object gid="19" x="1075" y="550"/>
+  <object gid="19" x="1025" y="325"/>
+  <object gid="19" x="800" y="200"/>
+  <object gid="19" x="850" y="300"/>
+  <object gid="19" x="900" y="100"/>
+  <object gid="19" x="750" y="50"/>
+  <object gid="19" x="1250" y="825"/>
+  <object gid="19" x="1175" y="650"/>
+  <object gid="19" x="900" y="625"/>
+  <object gid="20" x="1450" y="925"/>
+  <object gid="20" x="1200" y="900"/>
+  <object gid="20" x="1200" y="775"/>
+  <object gid="20" x="1050" y="700"/>
+  <object gid="20" x="800" y="700"/>
+  <object gid="20" x="775" y="600"/>
+  <object gid="20" x="750" y="325"/>
+  <object gid="20" x="425" y="525"/>
+  <object gid="20" x="350" y="550"/>
+  <object gid="20" x="375" y="1000"/>
+  <object gid="20" x="425" y="900"/>
+  <object gid="20" x="225" y="1025"/>
+  <object gid="20" x="75" y="575"/>
+  <object gid="20" x="50" y="450"/>
+  <object gid="0" x="-200" y="175"/>
  </objectgroup>
 </map>
